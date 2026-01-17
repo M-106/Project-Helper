@@ -435,6 +435,688 @@ git remote add github url-of-empty-github-projekt
 git push github --all
 git remote remove github
 ```
+<br><br>
+
+You can check with which Github Project your local Git Project is connect via:
+```bash
+git remote -v
+```
+Shows: REMOTE_NAME REMOTE_URL (PIPELINE -> push or pull/fetch)
+
+<br><br>
+
+You can then also change to which Github Project you want to push and pull from:
+```bash
+git remote set-url origin https://github.com/YOUR_NAME/your-project.git
+```
+Or via SSH:
+```bash
+git remote set-url origin git@github.com:YOUR_NAME/your-project.git
+```
+
+Check via: `git remote -v`
+
+<br><br>
+
+If you changed your Github name, this is for you: Changing all git repos and submodules in current folder. Go into your GitBash, `cd` to the fodler with git projects and paste following code (change the naming):
+```bash
+OLDNAME="xXAI-botXx"
+NEWNAME="M-106"
+
+for d in */.git; do
+  (
+    cd "${d%/.git}" || exit
+
+    echo
+    echo "============================================"
+    echo "Repository: $(basename "$(pwd)")"
+    echo "============================================"
+
+    # ---- Main repo ----
+    if git remote get-url origin | grep -q "$OLDNAME"; then
+      git remote set-url origin "$(git remote get-url origin | sed "s/$OLDNAME/$NEWNAME/")"
+      echo "Updated main repo remote"
+    else
+      echo "Main repo remote unchanged"
+    fi
+
+    # ---- Submodules ----
+    git submodule foreach --recursive '
+      if git remote get-url origin | grep -q "'"$OLDNAME"'"; then
+        git remote set-url origin "$(git remote get-url origin | sed "s/'"$OLDNAME"'/'"$NEWNAME"'/")"
+        echo "Updated submodule: $name"
+      else
+        echo "Submodule unchanged: $name"
+      fi
+    '
+
+    # ---- Sync + update ----
+    git submodule sync --recursive
+    git submodule update --init --recursive
+
+    # ---- Verification ----
+    echo
+    echo "--- Main repo remotes ---"
+    git remote -v
+
+    echo
+    echo "--- Submodule remotes ---"
+    git submodule foreach --recursive 'git remote -v'
+
+  )
+done
+```
+
+Example output:
+```bash
+tobia@TobiasPC MINGW64 /d/Informatik/Projekte
+$ OLDNAME="xXAI-botXx"
+NEWNAME="M-106"
+
+for d in */.git; do
+  (
+    cd "${d%/.git}" || exit
+
+    echo
+    echo "============================================"
+    echo "Repository: $(basename "$(pwd)")"
+    echo "============================================"
+
+    # ---- Main repo ----
+    if git remote get-url origin | grep -q "$OLDNAME"; then
+      git remote set-url origin "$(git remote get-url origin | sed "s/$OLDNAME/$NEWNAME/")"
+      echo "Updated main repo remote"
+    else
+      echo "Main repo remote unchanged"
+    fi
+
+    # ---- Submodules ----
+    git submodule foreach --recursive '
+      if git remote get-url origin | grep -q "'"$OLDNAME"'"; then
+        git remote set-url origin "$(git remote get-url origin | sed "s/'"$OLDNAME"'/'"$NEWNAME"'/")"
+donegit submodule foreach --recursive 'git remote -v'
+
+============================================
+Repository: AI
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/AI.git (fetch)
+origin  https://github.com/M-106/AI.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: automatic_latex_photo_album
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/automatic_latex_photo_album.git (fetch)
+origin  https://github.com/M-106/automatic_latex_photo_album.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: computer-vision
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/computer-vision.git (fetch)
+origin  https://github.com/M-106/computer-vision.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: CPP
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/CPP.git (fetch)
+origin  https://github.com/M-106/CPP.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Data-Engineer-Reference
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Data-Engineer-Reference.git (fetch)
+origin  https://github.com/M-106/Data-Engineer-Reference.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Deep-Learning-for-Medical-Images
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Deep-Learning-for-Medical-Images.git (fetch)
+origin  https://github.com/M-106/Deep-Learning-for-Medical-Images.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: DirectX
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/DirectX.git (fetch)
+origin  https://github.com/M-106/DirectX.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Docker
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Docker.git (fetch)
+origin  https://github.com/M-106/Docker.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Emerging-Light-Engine
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Emerging-Light-Engine.git (fetch)
+origin  https://github.com/M-106/Emerging-Light-Engine.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: GANs
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/GANs.git (fetch)
+origin  https://github.com/M-106/GANs.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Generative-Deep-Learning
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Generative-Deep-Learning.git (fetch)
+origin  https://github.com/M-106/Generative-Deep-Learning.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Genetic-Algorithm
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Genetic-Algorithm.git (fetch)
+origin  https://github.com/M-106/Genetic-Algorithm.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Graph-Manifold-Learn
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Graph-Manifold-Learn.git (fetch)
+origin  https://github.com/M-106/Graph-Manifold-Learn.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Graph-Neural-Networks
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Graph-Neural-Networks.git (fetch)
+origin  https://github.com/M-106/Graph-Neural-Networks.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Image-Physics-Simulation
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Image-Physics-Simulation.git (fetch)
+origin  https://github.com/M-106/Image-Physics-Simulation.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Latex
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Latex.git (fetch)
+origin  https://github.com/M-106/Latex.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Magic-Sovereign
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Magic-Sovereign.git (fetch)
+origin  https://github.com/M-106/Magic-Sovereign.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: MirrorNet
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/MirrorNet.git (fetch)
+origin  https://github.com/M-106/MirrorNet.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Mouse-Keyboard-Activity
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Mouse-Keyboard-Activity.git (fetch)
+origin  https://github.com/M-106/Mouse-Keyboard-Activity.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Noise-Modelling-Datageneration
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Noise-Modelling-Datageneration.git (fetch)
+origin  https://github.com/M-106/Noise-Modelling-Datageneration.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Pointcloud-M-106
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Pointcloud-M-106.git (fetch)
+origin  https://github.com/M-106/Pointcloud-M-106.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: prime_printer
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/prime_printer.git (fetch)
+origin  https://github.com/M-106/prime_printer.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Project_Transformer
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Project_Transformer.git (fetch)
+origin  https://github.com/M-106/Project_Transformer.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Pythonic-X-ray
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Pythonic-X-ray.git (fetch)
+origin  https://github.com/M-106/Pythonic-X-ray.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Python-Reference
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Python-Reference.git (fetch)
+origin  https://github.com/M-106/Python-Reference.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: PyTorch-Reference
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/PyTorch-Reference.git (fetch)
+origin  https://github.com/M-106/PyTorch-Reference.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: PyTorch-Reference-External
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/PyTorch-Reference.git (fetch)
+origin  https://github.com/M-106/PyTorch-Reference.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: RAG_Evaluation
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/RAG_Evaluation.git (fetch)
+origin  https://github.com/M-106/RAG_Evaluation.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Reinforcement_Course
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Reinforcement_Course.git (fetch)
+origin  https://github.com/M-106/Reinforcement_Course.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: RL-Stock-Trading
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/RL-Stock-Trading.git (fetch)
+origin  https://github.com/M-106/RL-Stock-Trading.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Runtime-Guard
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Runtime-Guard.git (fetch)
+origin  https://github.com/M-106/Runtime-Guard.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Super-Zeldario
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Super-Zeldario.git (fetch)
+origin  https://github.com/M-106/Super-Zeldario.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: TensorFlow-Reference
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/TensorFlow-Reference.git (fetch)
+origin  https://github.com/M-106/TensorFlow-Reference.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: tensor-rush
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/tensor-rush.git (fetch)
+origin  https://github.com/M-106/tensor-rush.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: torch-mask-rcnn-instance-segmentation
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/torch-mask-rcnn-instance-segmentation.git (fetch)
+origin  https://github.com/M-106/torch-mask-rcnn-instance-segmentation.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Wind_Forge
+============================================
+Updated main repo remote
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Wind_Forge.git (fetch)
+origin  https://github.com/M-106/Wind_Forge.git (push)
+
+--- Submodule remotes ---
+
+tobia@TobiasPC MINGW64 /d/Informatik/Projekte
+$ cd ..
+
+tobia@TobiasPC MINGW64 /d/Informatik
+$ OLDNAME="xXAI-botXx"
+NEWNAME="M-106"
+
+for d in */.git; do
+  (
+    cd "${d%/.git}" || exit
+
+    echo
+    echo "============================================"
+    echo "Repository: $(basename "$(pwd)")"
+    echo "============================================"
+
+    # ---- Main repo ----
+    if git remote get-url origin | grep -q "$OLDNAME"; then
+      git remote set-url origin "$(git remote get-url origin | sed "s/$OLDNAME/$NEWNAME/")"
+      echo "Updated main repo remote"
+    else
+      echo "Main repo remote unchanged"
+    fi
+
+    # ---- Submodules ----
+    git submodule foreach --recursive '
+      if git remote get-url origin | grep -q "'"$OLDNAME"'"; then
+        git remote set-url origin "$(git remote get-url origin | sed "s/'"$OLDNAME"'/'"$NEWNAME"'/")"
+donegit submodule foreach --recursive 'git remote -v'
+
+============================================
+Repository: M-106
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/M-106.git (fetch)
+origin  https://github.com/M-106/M-106.git (push)
+
+--- Submodule remotes ---
+
+============================================
+Repository: Project-Helper
+============================================
+Updated main repo remote
+Entering 'external/Image-Physics-Simulation'
+Updated submodule: external/Image-Physics-Simulation
+Entering 'external/Runtime-Guard'
+Updated submodule: external/Runtime-Guard
+Synchronizing submodule url for 'external/Image-Physics-Simulation'
+Synchronizing submodule url for 'external/Runtime-Guard'
+Submodule 'external/AI' (https://github.com/xXAI-botXx/AI) registered for path 'external/AI'
+Submodule 'external/CPP' (https://github.com/xXAI-botXx/CPP) registered for path 'external/CPP'
+Submodule 'external/Data-Engineer-Reference' (https://github.com/xXAI-botXx/Data-Engineer-Reference) registered for path 'external/Data-Engineer-Reference'
+Submodule 'external/Deep-Learning-for-Medical-Images' (https://github.com/xXAI-botXx/Deep-Learning-for-Medical-Images) registered for path 'external/Deep-Learning-for-Medical-Images'
+Submodule 'external/GANs' (https://github.com/xXAI-botXx/GANs) registered for path 'external/GANs'
+Submodule 'external/HelpJl' (https://github.com/xXAI-botXx/HelpJl) registered for path 'external/HelpJl'
+Submodule 'external/Latex' (https://github.com/xXAI-botXx/Latex) registered for path 'external/Latex'
+Submodule 'external/Project_Transformer' (https://github.com/xXAI-botXx/Project_Transformer) registered for path 'external/Project_Transformer'
+Submodule 'external/PyTorch-Reference' (https://github.com/xXAI-botXx/PyTorch-Reference) registered for path 'external/PyTorch-Reference'
+Submodule 'external/PyTorch-Reference-Extern' (https://github.com/xXAI-botXx/PyTorch-Reference-Extern) registered for path 'external/PyTorch-Reference-Extern'
+Submodule 'external/Python-Reference' (https://github.com/xXAI-botXx/Python-Reference) registered for path 'external/Python-Reference'
+Submodule 'external/Reinforcement_Learning' (https://github.com/xXAI-botXx/Reinforcement_Learning) registered for path 'external/Reinforcement_Learning'
+Submodule 'external/TensorFlow-Reference' (https://github.com/xXAI-botXx/TensorFlow-Reference) registered for path 'external/TensorFlow-Reference'
+Submodule 'external/Wind_Forge' (https://github.com/xXAI-botXx/Wind_Forge.git) registered for path 'external/Wind_Forge'
+Submodule 'external/computer-vision' (https://github.com/xXAI-botXx/computer-vision) registered for path 'external/computer-vision'
+Submodule 'external/prime_printer' (https://github.com/xXAI-botXx/prime_printer) registered for path 'external/prime_printer'
+Cloning into 'D:/Informatik/Project-Helper/external/AI'...
+Cloning into 'D:/Informatik/Project-Helper/external/CPP'...
+Cloning into 'D:/Informatik/Project-Helper/external/Data-Engineer-Reference'...
+Cloning into 'D:/Informatik/Project-Helper/external/Deep-Learning-for-Medical-Images'...
+Cloning into 'D:/Informatik/Project-Helper/external/GANs'...
+Cloning into 'D:/Informatik/Project-Helper/external/HelpJl'...
+Cloning into 'D:/Informatik/Project-Helper/external/Latex'...
+Cloning into 'D:/Informatik/Project-Helper/external/Project_Transformer'...
+Cloning into 'D:/Informatik/Project-Helper/external/PyTorch-Reference'...
+Cloning into 'D:/Informatik/Project-Helper/external/PyTorch-Reference-Extern'...
+Cloning into 'D:/Informatik/Project-Helper/external/Python-Reference'...
+Cloning into 'D:/Informatik/Project-Helper/external/Reinforcement_Learning'...
+Cloning into 'D:/Informatik/Project-Helper/external/TensorFlow-Reference'...
+Cloning into 'D:/Informatik/Project-Helper/external/Wind_Forge'...
+Cloning into 'D:/Informatik/Project-Helper/external/computer-vision'...
+Cloning into 'D:/Informatik/Project-Helper/external/prime_printer'...
+Submodule path 'external/AI': checked out '48982346e507e7d16ca18523ef0d79ece88b544a'
+Submodule path 'external/CPP': checked out 'e9347dec090dc1faf0042c581d2e134a0bd7072a'
+Submodule path 'external/Data-Engineer-Reference': checked out '83455e8d033848e3e3366df1a0adf2fb138a3ff3'
+Submodule path 'external/Deep-Learning-for-Medical-Images': checked out '006ffd3183f07e2eca0f34108775fc25a919f627'
+Submodule path 'external/GANs': checked out '30c3bcc0d05dd7f970b56c2ee156daf044ae53ff'
+Submodule path 'external/HelpJl': checked out '69495725cb2780f3139e194c6407ec070b4061e6'
+Submodule path 'external/Latex': checked out '2f27c6d041ab5b99957eece1378c954537dda9cf'
+Submodule path 'external/Project_Transformer': checked out 'f2424492dc83f3d9917bf005408a9eb3f5394846'
+Submodule path 'external/PyTorch-Reference': checked out '6bd0a241d388a99b0271511a4b222432d92ea3b5'
+Submodule path 'external/PyTorch-Reference-Extern': checked out '502aa5c36666381206e05922ed5c3c3bca899554'
+Submodule path 'external/Python-Reference': checked out '48770e5dc266c62d5d16ef078cd21a3603bcf6e3'
+Submodule path 'external/Reinforcement_Learning': checked out '4a52fe3370b9e11826acdc74cb02abff6b59f57e'
+Submodule path 'external/TensorFlow-Reference': checked out '5ab77afcfd0312f2e2df4127063920928f3faac1'
+Submodule path 'external/Wind_Forge': checked out '5fbebc930174938ccd831a61eb3e9682f8c284c6'
+Submodule path 'external/computer-vision': checked out '070e93a3bc77ec14cdf5dd0df6b8622c47ffcf77'
+Submodule path 'external/prime_printer': checked out '15dcbde8a71751495c0414fa91ef45c43c0d1a85'
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Project-Helper.git (fetch)
+origin  https://github.com/M-106/Project-Helper.git (push)
+
+--- Submodule remotes ---
+Entering 'external/AI'
+origin  https://github.com/xXAI-botXx/AI (fetch)
+origin  https://github.com/xXAI-botXx/AI (push)
+Entering 'external/CPP'
+origin  https://github.com/xXAI-botXx/CPP (fetch)
+origin  https://github.com/xXAI-botXx/CPP (push)
+Entering 'external/Data-Engineer-Reference'
+origin  https://github.com/xXAI-botXx/Data-Engineer-Reference (fetch)
+origin  https://github.com/xXAI-botXx/Data-Engineer-Reference (push)
+Entering 'external/Deep-Learning-for-Medical-Images'
+origin  https://github.com/xXAI-botXx/Deep-Learning-for-Medical-Images (fetch)
+origin  https://github.com/xXAI-botXx/Deep-Learning-for-Medical-Images (push)
+Entering 'external/GANs'
+origin  https://github.com/xXAI-botXx/GANs (fetch)
+origin  https://github.com/xXAI-botXx/GANs (push)
+Entering 'external/HelpJl'
+origin  https://github.com/xXAI-botXx/HelpJl (fetch)
+origin  https://github.com/xXAI-botXx/HelpJl (push)
+Entering 'external/Image-Physics-Simulation'
+origin  https://github.com/xXAI-botXx/Image-Physics-Simulation.git (fetch)
+origin  https://github.com/xXAI-botXx/Image-Physics-Simulation.git (push)
+Entering 'external/Latex'
+origin  https://github.com/xXAI-botXx/Latex (fetch)
+origin  https://github.com/xXAI-botXx/Latex (push)
+Entering 'external/Project_Transformer'
+origin  https://github.com/xXAI-botXx/Project_Transformer (fetch)
+origin  https://github.com/xXAI-botXx/Project_Transformer (push)
+Entering 'external/PyTorch-Reference'
+origin  https://github.com/xXAI-botXx/PyTorch-Reference (fetch)
+origin  https://github.com/xXAI-botXx/PyTorch-Reference (push)
+Entering 'external/PyTorch-Reference-Extern'
+origin  https://github.com/xXAI-botXx/PyTorch-Reference-Extern (fetch)
+origin  https://github.com/xXAI-botXx/PyTorch-Reference-Extern (push)
+Entering 'external/Python-Reference'
+origin  https://github.com/xXAI-botXx/Python-Reference (fetch)
+origin  https://github.com/xXAI-botXx/Python-Reference (push)
+Entering 'external/Reinforcement_Learning'
+origin  https://github.com/xXAI-botXx/Reinforcement_Learning (fetch)
+origin  https://github.com/xXAI-botXx/Reinforcement_Learning (push)
+Entering 'external/Runtime-Guard'
+origin  https://github.com/xXAI-botXx/Runtime-Guard.git (fetch)
+origin  https://github.com/xXAI-botXx/Runtime-Guard.git (push)
+Entering 'external/TensorFlow-Reference'
+origin  https://github.com/xXAI-botXx/TensorFlow-Reference (fetch)
+origin  https://github.com/xXAI-botXx/TensorFlow-Reference (push)
+Entering 'external/Wind_Forge'
+origin  https://github.com/xXAI-botXx/Wind_Forge.git (fetch)
+origin  https://github.com/xXAI-botXx/Wind_Forge.git (push)
+Entering 'external/computer-vision'
+origin  https://github.com/xXAI-botXx/computer-vision (fetch)
+origin  https://github.com/xXAI-botXx/computer-vision (push)
+Entering 'external/prime_printer'
+origin  https://github.com/xXAI-botXx/prime_printer (fetch)
+origin  https://github.com/xXAI-botXx/prime_printer (push)
+
+============================================
+Repository: Project-Lake
+============================================
+Updated main repo remote
+fatal: No url found for submodule path 'Deploy Machine Learning Models/deploying-machine-learning-models' in .gitmodules
+fatal: No url found for submodule path 'Deploy Machine Learning Models/deploying-machine-learning-models' in .gitmodules
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/Project-Lake.git (fetch)
+origin  https://github.com/M-106/Project-Lake.git (push)
+
+--- Submodule remotes ---
+fatal: No url found for submodule path 'Deploy Machine Learning Models/deploying-machine-learning-models' in .gitmodules
+
+============================================
+Repository: xXAI-botXx
+============================================
+Main repo remote unchanged
+
+--- Main repo remotes ---
+origin  https://github.com/M-106/M-106.git (fetch)
+origin  https://github.com/M-106/M-106.git (push)
+
+--- Submodule remotes ---
+```
 
 <br><br>
 
