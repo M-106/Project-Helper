@@ -20,7 +20,7 @@ Local Installation of the Project-Helper Guides:
   - Via Git GUI [see here](./guides/Git_Helper.md#git-gui) + make sure to check the `recursively clone submodules too` box
   - Via Git bash [see here](./guides/Git_Helper.md#git-gui)
     ```git
-    git clone https://github.com/xXAI-botXx/Project-Helper.git
+    git clone https://github.com/M-106/Project-Helper.git
     git submodule init
     git submodule update
     ```
@@ -39,7 +39,7 @@ Local Installation of the Project-Helper Guides:
 ### <------ General ------>
 ### [Git Guide](guides/Git_Helper.md)
 ### [Remote ML Workflow & GPU Management (with cmd/bash commands + SSH guide)](guides/Remote_ML_Workflow_and_GPU_Management.md)
-### [Latex](./external/Latex/README.md) [[repo link](https://github.com/xXAI-botXx/Latex)]
+### [Latex](./external/Latex/README.md) [[repo link](https://github.com/M-106/Latex)]
 ### [Chocolately](guides/Chocolately.md)
 ### [Docker](./guides/Docker.md)
 ### [Cloud](./guides/Cloud.md)
@@ -47,7 +47,7 @@ Local Installation of the Project-Helper Guides:
 <br><br>
 
 ### <------ Python ------>
-### [Python Reference](./external/Python-Reference/README.md) [[repo link](https://github.com/xXAI-botXx/Python-Reference)]
+### [Python Reference](./external/Python-Reference/README.md) [[repo link](https://github.com/M-106/Python-Reference)]
 ### [Python Installation](#python-installation-1)
 ### [Python Virtual Environments](#python-virtual-environments-1)
 ### [Ananconda](#anaconda)
@@ -57,38 +57,38 @@ Local Installation of the Project-Helper Guides:
 ### [Sphinx Guide](guides/Sphinx_Helper.md)
 ### [IPYNB Interactives](guides/IPYNB_Interactives.md)
 ### [Ipynb to Markdown](#ipynb-to-markdown)
-### [Print Helper (prime) -> Helper Module](./external/prime_printer/README.md) [[repo link](https://github.com/xXAI-botXx/prime_printer)]
-### [OpenGL with Python (PyOpenGL not moderngl)](./external/Wind_Forge/README.md) [[repo link](https://github.com/xXAI-botXx/Wind_Forge)]
-### [Image-Physics-Simulation (image processing tools + 2D ray-tracing) -> Helper Module](./external/Image-Physics-Simulation/README.md) [[repo link](https://github.com/xXAI-botXx/Image-Physics-Simulation)]
-### [Runtime Guard (ressource monitor) -> Helper Module](./external/Runtime-Guard/README.md) [[repo link](https://github.com/xXAI-botXx/Runtime-Guard)]
+### [Print Helper (prime) -> Helper Module](./external/prime_printer/README.md) [[repo link](https://github.com/M-106/prime_printer)]
+### [OpenGL with Python (PyOpenGL not moderngl)](./external/Wind_Forge/README.md) [[repo link](https://github.com/M-106/Wind_Forge)]
+### [Image-Physics-Simulation (image processing tools + 2D ray-tracing) -> Helper Module](./external/Image-Physics-Simulation/README.md) [[repo link](https://github.com/M-106/Image-Physics-Simulation)]
+### [Runtime Guard (ressource monitor) -> Helper Module](./external/Runtime-Guard/README.md) [[repo link](https://github.com/M-106/Runtime-Guard)]
 
 <br><br>
 
 ### <------ Artificial Intelligence ------>
-### [AI (general)](./external/AI/README.md) [[repo link](https://github.com/xXAI-botXx/AI)]
-### [Data Engineer Reference](./external/Data-Engineer-Reference/README.md) [[repo link](https://github.com/xXAI-botXx/Data-Engineer-Reference)]
-### [OpenCV](./external/computer-vision/README.md) [[repo link](https://github.com/xXAI-botXx/computer-vision)]
-### [Deep Learning for Medical Images](./external/Deep-Learning-for-Medical-Images/README.md) [[repo link](https://github.com/xXAI-botXx/Deep-Learning-for-Medical-Images)]
-### [GANs](./external/GANs/README.md) [repo link](https://github.com/xXAI-botXx/GANs)
-### [Reinforcement Learning](./external/Reinforcement_Learning/README.md) [[repo link](https://github.com/xXAI-botXx/Reinforcement_Learning)]
-### [Transformer](./external/Project_Transformer/README.md) [[repo link](https://github.com/xXAI-botXx/Project_Transformer)]
-### [TensorFlow Reference](./external/TensorFlow-Reference/README.md) [[repo link](https://github.com/xXAI-botXx/TensorFlow-Reference)]
-### [PyTorch Reference](./external/PyTorch-Reference/README.md) [[repo link](https://github.com/xXAI-botXx/PyTorch-Reference)]
-### [PyTorch Reference (not from me)](./external/PyTorch-Reference-Extern/README.md) [[repo link](https://github.com/xXAI-botXx/PyTorch-Reference-Extern)]
-### [Julia](./external/HelpJl/README.md) [[repo link](https://github.com/xXAI-botXx/HelpJl)]
+### [AI (general)](./external/AI/README.md) [[repo link](https://github.com/M-106/AI)]
+### [Data Engineer Reference](./external/Data-Engineer-Reference/README.md) [[repo link](https://github.com/M-106/Data-Engineer-Reference)]
+### [OpenCV](./external/computer-vision/README.md) [[repo link](https://github.com/M-106/computer-vision)]
+### [Deep Learning for Medical Images](./external/Deep-Learning-for-Medical-Images/README.md) [[repo link](https://github.com/M-106/Deep-Learning-for-Medical-Images)]
+### [GANs](./external/GANs/README.md) [repo link](https://github.com/M-106/GANs)
+### [Reinforcement Learning](./external/Reinforcement_Learning/README.md) [[repo link](https://github.com/M-106/Reinforcement_Learning)]
+### [Transformer](./external/Project_Transformer/README.md) [[repo link](https://github.com/M-106/Project_Transformer)]
+### [TensorFlow Reference](./external/TensorFlow-Reference/README.md) [[repo link](https://github.com/M-106/TensorFlow-Reference)]
+### [PyTorch Reference](./external/PyTorch-Reference/README.md) [[repo link](https://github.com/M-106/PyTorch-Reference)]
+### [PyTorch Reference (not from me)](./external/PyTorch-Reference-Extern/README.md) [[repo link](https://github.com/M-106/PyTorch-Reference-Extern)]
+### [Julia](./external/HelpJl/README.md) [[repo link](https://github.com/M-106/HelpJl)]
 
 <!--
 <br><br>
 
 ### <------ Gaming ------>
 <!--
-### [Ursina](https://github.com/xXAI-botXx/Ursina) \*coming soon
+### [Ursina](https://github.com/M-106/Ursina) \*coming soon
 -->
 
 <br><br>
 
 ### <------ C++ ------>
-### [C++](./external/CPP/README.md) [[repo link](https://github.com/xXAI-botXx/CPP)]
+### [C++](./external/CPP/README.md) [[repo link](https://github.com/M-106/CPP)]
 ### [Doxygen](guides/Doxygen.md)
 
 
