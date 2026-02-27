@@ -19,6 +19,7 @@ Contents:
 - [Commands](#commands)
 - [Interesting Software](#interesting-software)
 - [File-System-Structure Explained](#file-system-structure-explained)
+- [Get Hardware Specs](#get-hardware-specs)
 <!--
 - [PDF Editing (password protection, signing)](#pdf-editing)
 -->
@@ -938,6 +939,93 @@ Paths to remeber:
 | `/usr`           | User programs and libraries  |
 | `/bin`           | Essential system binaries    |
 
+
+
+
+
+<br><br>
+
+---
+
+### Get Hardware Specs
+
+Everything together:
+```bash
+echo "CPU:" && lscpu | grep "Model name" && \
+echo -e "\nGPU:" && nvidia-smi --query-gpu=name,memory.total,compute_cap --format=csv && \
+echo -e "\nRAM:" && free -h
+```
+
+#### Get CPU Info
+
+```bash
+lscpu
+```
+
+With the important fields:
+- Model name
+- CPU(s)
+- Thread(s) per core
+- Core(s) per socket
+- MHz
+- Flags (z.B. avx, avx2, avx512 für ML relevant)
+
+
+```bash
+cat /proc/cpuinfo
+```
+
+
+#### Get GPU Info
+
+```bash
+nvidia-smi
+```
+
+With more details
+```bash
+nvidia-smi -q
+```
+
+Live show
+```bash
+nvidia-smi -l
+```
+
+Compact some important informations
+```bash
+nvidia-smi --query-gpu=name,memory.total,driver_version,compute_cap --format=csv
+```
+
+AI-relevant:
+- Name
+- VRAM (memory.total)
+- Compute Capability
+- CUDA Version (nvidia-smi ganz oben)
+- Tensor Cores (architecturedependent)
+
+
+If not having nvidia
+```bash
+lspci | grep -i vga
+```
+
+
+#### Get RAM info
+
+```bash
+free -h
+```
+
+More detailed
+```bash
+sudo dmidecode --type memory
+```
+
+Just total RAM
+```bash
+grep MemTotal /proc/meminfo
+```
 
 
 

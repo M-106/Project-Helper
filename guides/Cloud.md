@@ -26,7 +26,7 @@ I used the `rclone` software for that. As said, there might be other software an
 Here it is with the example of OneDrive.
 
 1. Installation
-    - Donwload the execution file from https://rclone.org/downloads/ and unpack it to `C:\rclone` or whever you want to have it -> Your `Arch-OS` can be found in Your `Settings > System > Devicespecifications > Systemtype` (64-bit...) and there is also the processor name/brand. Else you can also check your system with [HWiNFO](https://www.hwinfo.com/download/).
+    - Donwload the execution file from https://rclone.org/downloads/ and unpack it to `C:\rclone` or whever you want to have it -> Your `Arch-OS` can be found in Your `Settings > System > Devicespecifications > Systemtype` (64-bit...) and there is also the processor name/brand. Else you can also check your system with [HWiNFO](https://www.hwinfo.com/download/). + Add the folder-path to rclone to the `path` directions in your systemvariables so that windows will find rclone.
     - Or on Linux: `curl https://rclone.org/install.sh | sudo bash`
     - Check installation with opening your CMD and type `rclone --version`
 2. Setup OneDrive
