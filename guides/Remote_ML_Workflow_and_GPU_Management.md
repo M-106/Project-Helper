@@ -5,6 +5,8 @@
 This file tries to help out for remote control a compute device (server).
 
 
+> For more informations about Linux, [see our Linux Guide](./Linux.md).
+
 
 Table of Contents:
 

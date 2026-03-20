@@ -42,6 +42,7 @@ Local Installation of the Project-Helper Guides:
 ### [Chocolately](guides/Chocolately.md)
 ### [Docker](./guides/Docker.md)
 ### [Cloud](./guides/Cloud.md)
+### [Linux](./guides/Linux.md)
 
 <br><br>
 
