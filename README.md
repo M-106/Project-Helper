@@ -38,7 +38,6 @@ Local Installation of the Project-Helper Guides:
 
 ### <------ General ------>
 ### [Git Guide](guides/Git_Helper.md)
-### [Remote ML Workflow & GPU Management (with cmd/bash commands + SSH guide)](guides/Remote_ML_Workflow_and_GPU_Management.md)
 ### [Latex](./external/Latex/README.md) [[repo link](https://github.com/M-106/Latex)]
 ### [Chocolately](guides/Chocolately.md)
 ### [Docker](./guides/Docker.md)
@@ -66,15 +65,19 @@ Local Installation of the Project-Helper Guides:
 
 ### <------ Artificial Intelligence ------>
 ### [AI (general)](./external/AI/README.md) [[repo link](https://github.com/M-106/AI)]
+→ includes PyTorch, TensorFlow, Experiment Tracking, HuggingFace Guide and much more
+### [Remote ML Workflow & GPU Management (with cmd/bash commands + SSH guide)](guides/Remote_ML_Workflow_and_GPU_Management.md)
 ### [Data Engineer Reference](./external/Data-Engineer-Reference/README.md) [[repo link](https://github.com/M-106/Data-Engineer-Reference)]
 ### [OpenCV](./external/computer-vision/README.md) [[repo link](https://github.com/M-106/computer-vision)]
 ### [Deep Learning for Medical Images](./external/Deep-Learning-for-Medical-Images/README.md) [[repo link](https://github.com/M-106/Deep-Learning-for-Medical-Images)]
-### [GANs](./external/GANs/README.md) [repo link](https://github.com/M-106/GANs)
+### [GANs](./external/GANs/README.md) [[repo link](https://github.com/M-106/GANs)]
 ### [Reinforcement Learning](./external/Reinforcement_Learning/README.md) [[repo link](https://github.com/M-106/Reinforcement_Learning)]
 ### [Transformer](./external/Project_Transformer/README.md) [[repo link](https://github.com/M-106/Project_Transformer)]
+<!--
 ### [TensorFlow Reference](./external/TensorFlow-Reference/README.md) [[repo link](https://github.com/M-106/TensorFlow-Reference)]
 ### [PyTorch Reference](./external/PyTorch-Reference/README.md) [[repo link](https://github.com/M-106/PyTorch-Reference)]
-### [PyTorch Reference (not from me)](./external/PyTorch-Reference-Extern/README.md) [[repo link](https://github.com/M-106/PyTorch-Reference-Extern)]
+-->
+### [PyTorch Reference (not from me)](./external/PyTorch-Reference-Extern/README.md) [[repo link](https://github.com/M-106/ONLY_FORK_PyTorch-Reference-Extern)]
 ### [Julia](./external/HelpJl/README.md) [[repo link](https://github.com/M-106/HelpJl)]
 
 <!--
