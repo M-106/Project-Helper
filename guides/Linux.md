@@ -20,6 +20,7 @@ Contents:
 - [Interesting Software](#interesting-software)
 - [File-System-Structure Explained](#file-system-structure-explained)
 - [Get Hardware Specs](#get-hardware-specs)
+- [Virtual Box](#virtual-box)
 <!--
 - [PDF Editing (password protection, signing)](#pdf-editing)
 -->
@@ -942,7 +943,6 @@ Paths to remeber:
 
 
 
-
 <br><br>
 
 ---
@@ -1026,6 +1026,48 @@ Just total RAM
 ```bash
 grep MemTotal /proc/meminfo
 ```
+
+
+
+<br><br>
+
+---
+
+### Virtual Box
+
+Just download [the installer](https://www.virtualbox.org/wiki/Downloads) and follow the installation steps. Then you need an `.iso` file from [Ubuntu](https://ubuntu.com/download/desktop) or another linux distribution (also windows possible, if you want to feel how it was in 2007 xD).
+
+A few tips:
+- give the machine/virtual env enough RAM and ressources
+- set the keyboard to german (or whatever you have) in the virtual OS settings (in Ubunut: Settings -> Keyboard)
+- set a shared folder
+    1. On Virtual Box, choose your virtual env, hit settings and go to **Shared Memory**
+    2. Add another memory item, with:
+        - Folde-Path -> where the disk/memory is on the real OS (e.g. `M:\`)
+        - Folder-Name -> what the disk should be named like (e.g. `M_DRIVE`)
+        - Connectionpoint -> where it should be connecected to (e.g. `/home/vboxuser/external_drives/`)
+        - also hit `automatic connection` and `make permanent for the machine`
+    3. Now start the virtual env and click in the top bar on `devices` and on `Insert guest extensions`
+    4. Now open the terminal and type following:
+        ```bash
+        sudo apt update
+        sudo apt install build-essential dkms linux-headers-$(uname -r)
+        sudo mkdir /media/cdrom
+        sudo mount /dev/cdrom /media/cdrom
+        sudo /media/cdrom/VBoxLinuxAdditions.run
+        ```
+    5. Restart your env and now you should find your external shared memory
+    - Sometimes a change on the rights can also help, open your terminal in the virtual env and type:
+        ```bash
+        sudo usermod -aG vboxsf vboxuser
+        ```
+        And reboot afterwards.
+
+
+
+
+
+
 
 
 
