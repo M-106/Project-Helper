@@ -43,7 +43,7 @@ On Windows:
     - Set `Boot Selection` to `Disk or ISO image`
     - Click on `SELECT` next to the `Boot Selection` and find your downloaded Ubuntu iso file
 6. Start Rufus Boot-Stick creation
-7. Put your USB into your laptop or pc and start the device -> during the start-up press `F12`, `F2`, `Entf` -> it depends on your device and most likely is written very shortly on screen during boot-up.
+7. Put your USB into your laptop or pc and start the device → during the start-up press `F12`, `F2`, `Entf` → it depends on your device and most likely is written very shortly on screen during boot-up.
 8. Follow the installation process
 
 > You may want to go into your boot menu and select the boot to the usb stick.
@@ -64,10 +64,10 @@ If you have a program and do not know where this program comes from, check it wi
 ```bash
 which programname
 ```
-- `usr/bin` -> apt
-- `usr/local/bin` or `opt/` -> from yourself (maybe from `tar.gz`)
-- `snap/bin` -> snap
-- `var/lib/flatpak` -> flatpak
+- `usr/bin` → apt
+- `usr/local/bin` or `opt/` → from yourself (maybe from `tar.gz`)
+- `snap/bin` → snap
+- `var/lib/flatpak` → flatpak
 
 Following is a good base installtion:
 ```bash
@@ -281,7 +281,7 @@ sudo apt install build-essential cmake meson ninja-build git
     Most of following variants have following steps:
     1. Setup (check dependencies, prepare/check compiler, ...)
     2. Compile to machine code / executable
-    3. Copy it to `/usr/local/bin`, `/usr/local/lib` or `/usr/local/include` and make it global accessable -> often called "install"
+    3. Copy it to `/usr/local/bin`, `/usr/local/lib` or `/usr/local/include` and make it global accessable → often called "install"
 
     You can use autotools:
     ```bash
@@ -329,36 +329,52 @@ sudo apt install build-essential cmake meson ninja-build git
 <br>
 
 **Navigation commands:**
-- `pwd` -> print working directory
-- `ls` -> list files
-- `ls -l` -> detailed list
-- `ls -a` -> show hidden files
-- `cd folder` -> change directory
-- `cd ..` -> go up one level
-- `cd ~` -> go to home directory
-- `cd /` -> go to root
+- `pwd` → print working directory
+- `ls` → list files
+- `ls -l` → detailed list
+- `ls -a` → show hidden files
+- `cd folder` → change directory
+- `cd ..` → go up one level
+- `cd ~` → go to home directory
+- `cd /` → go to root
 
 <br><br>
 
 **File and Directory Management:**
-- `mkdir foldername` -> create directory
-- `rmdir foldername` -> remove empty directory
-- `rm file` -> remove file
-- `rm -r folder` -> remove folder recursively
-- `cp source target` -> copy
-- `mv source target` -> move or rename
-- `touch file.txt` -> create empty file
+- `mkdir foldername` → create directory
+- `rmdir foldername` → remove empty directory
+- `rm file` → remove file
+- `rm -r folder` → remove folder recursively
+- `rm -rf folder` → force remove folder recursively (sometimes needed)
+- `cp source target` → copy
+- `mv source target` → move or rename
+- `touch file.txt` → create empty file
 
 <br><br>
 
 **Viewing and Editing Files:**
-- `cat file.txt` -> show entire file
-- `less file.txt` -> scrollable viewer
-- `head file.txt` -> first lines
-- `tail file.txt` -> last lines
-- `tail -f logfile` -> live log monitoring
-- `nano file.txt` -> simple editor
-- `vim file.txt` -> advanced editor
+- `cat file.txt` → show entire file
+- `less file.txt` → scrollable viewer
+- `head file.txt` → first lines
+- `tail file.txt` → last lines
+- `tail -f logfile` → live log monitoring
+- `nano file.txt` → simple editor
+- `vim file.txt` → advanced editor
+
+<br><br>
+
+**Searching and Text Processing:**
+- `grep "text" file` → search inside files
+- `grep -r "text" .` → search recursivly for files (also inside files) with the text as content
+- `grep -ri "text" .` → search recursivly for files (also inside files) with the text as content and with case insensitive search
+- `grep -r "hello" ./sub_dir --include="*.txt"` → search in all text files after hello
+- `find folder/ -name "*.txt"` → searches text files
+- `find . -type f` → only files
+- `find . -type d` → only directories
+- `find folder/ -name "*.txt" -exec grep "hello" {} +` → find all files which end with txt and have hello in the file
+
+
+> This gets powerful in combination `ls -l | grep ".txt"`, finds all files with txt ending → uses the output of the previous command as text input. Also useful `find folder/ -name "*.txt" | xargs grep "hello"`, which finds all files which include hello (inside of the file) and .txt ending in the filename.
 
 <br><br>
 
@@ -382,60 +398,183 @@ User groups:
 | 7–9      | Others  |
 
 Commands:
-- `chmod +x file` -> make executable
-- `chmod 755 file` -> set numeric permissions
-- `chown user file` -> change owner
-- `chown user:group file` -> change owner and group
+- `chmod +x file` → make executable
+- `chmod 755 file` → set numeric permissions
+- `chown user file` → change owner
+- `chown user:group file` → change owner and group
+
+<br><br>
+
+**Disk and System Info:**
+- `df -h` → disk usage
+- `du -sh folder` → folder size
+- `free -h` → memory usage
+- `uname -a` → system info
+- `uptime` → system running time
+- `whoami` → current user
+
+> Also see here the [get hardware specs](#get-hardware-specs) chapter.
 
 <br><br>
 
 **Process Management:**
-- `ps` -> list processes
-- `ps aux` -> detailed process list
-- `top` -> live process viewer
-- `htop` -> improved process viewer (install required)
-- `kill PID` -> terminate process
-- `kill -9 PID` -> force kill
-- `jobs` -> background jobs
-- `fg` -> bring job to foreground
-- `bg` -> send job to background
-- `Ctrl + C` -> stop current process
-- `Ctrl + Z` -> suspend process
+- `ps` → list processes
+- `ps aux` → detailed process list
+- `top` → live process viewer
+- `htop` → improved process viewer (install required → `sudo apt install htop`)
+- `kill PID` → terminate process
+- `kill -9 PID` → force kill
+- `jobs` → background jobs
+- `fg` → bring job to foreground
+- `bg` → send job to background
+
+> Also notice:
+> - `Ctrl + C` → stop current process
+> - `Ctrl + Z` → suspend process
+
+<br><br>
+
+**Users and Permissions:**
+- `who` → logged-in users
+- `id` → user info
+- `passwd` → change password
+
+<br><br>
+
+**Networking and Downloads:**
+- `wget URL` → download file
+- `wget -r -np -nd -A "*.bag" -P PATH URL` → download all files recursivly and with file name filter and into a path
+- `curl URL` → fetch data (API, send an HTTP request and sends you back the result)
+- `curl -I URL` → show headers
+- `curl -O URL` → save file
+- `ping https://google.com` → save file
+- `ip a` → show IP adress
+- `ss -tuln` → show open ports
+- `ssh user@host` → connect to a server (example root@192.168.1.10)
+- `ssh-keygen` → generate ssh key (generates private key `~/.ssh/id_rsa` and public key `~/.ssh/id_rsa.pub`)
+- `ssh-copy-id user@host` → copy ssh info to server
+    - [for alternative way, checkout this](./Remote_ML_Workflow_and_GPU_Management.md#create-ssh-connection)
+- `ssh-copy-id -i ~/.ssh/mykey.pub user@host` → copy ssh info to server with a specific ssh key used (else `~/.ssh/id_rsa.pub` gets used)
+- `scp file user@host:/path` → copy files over ssh (use -r for directories)
+
+<br>
+
+Best Practise for SSH connections:
+1. create a config file
+    ```bash
+    nano ~/.ssh/config
+    ```
+2. Write something like this:
+    ```bash
+    Host myserver
+        HostName 192.168.1.10
+        User root
+        IdentityFile ~/.ssh/mykey
+    ```
+3. Now just run
+    ```bash
+    ssh myserver
+    ```
+
+<br><br>
+
+**System Control:**
+- `shutdown now` → shutdown the system
+- `reboot` → reboot the system
+- `systemctl status service` → shows the current state of a service/process
+- `systemctl start/stop service` → starts/stops a service/process
+- `clear` → clear screen
 
 <br><br>
 
 **Useful Shortcuts in Bash:**
-- `Tab` -> auto-complete
-- `Up Arrow` -> previous command
-- `Ctrl + R` -> search command history
-- `Ctrl + A` -> move to beginning of line
-- `Ctrl + E` -> move to end of line
-- `Ctrl + U` -> delete to beginning
-- `Ctrl + K` -> delete to end
-- `Ctrl + Shift + V` or `Shift + Insert` -> paste cached content
-- `!!` -> repeat last command
-- `history` -> show command history
-- `clear` -> clear screen
+- `Tab` → auto-complete
+- `Ctrl + C` → stop current process
+- `Ctrl + Z` → suspend process
+- `Up Arrow` → previous command
+- `Ctrl + R` → search command history
+- `Ctrl + A` → move to beginning of line
+- `Ctrl + E` → move to end of line
+- `Ctrl + U` → delete to beginning
+- `Ctrl + K` → delete to end
+- `Ctrl + Shift + V` or `Shift + Insert` → paste cached content
 
 <br><br>
 
 **Environment and Variables:**
-- `echo $HOME` -> print variable
-- `env` -> list environment variables
-- `export VAR=value` -> set variable
-- `.bashrc` -> user bash configuration file
-- `.profile` -> login shell configuration
+- `echo $HOME` → print variable
+- `env` → list environment variables
+- `export VAR=value` → set variable
+- `.bashrc` → user bash configuration file
+- `.profile` → login shell configuration
 
 <br><br>
 
 **Redirection and Pipes:**
-- `command > file` -> overwrite output
-- `command >> file` -> append output
-- `command < file` -> input from file
-- `command 2> error.txt` -> redirect errors
+- `command > file` → overwrite output
+- `command >> file` → append output
+- `command < file` → input from file
+- `command 2> error.txt` → redirect errors
 
 Pipes:<br>
-`command1 | command2` -> example: `ls -l | grep .txt`
+`command1 | command2` → example: `ls -l | grep .txt`
+
+- `find folder/ -name "*.txt" | xargs grep "hello"` → xargs takes input (most likely from a pipe) and turn it into command arguments. In this case it adds the found files to the arguments (grep will search in the files)
+
+<br><br>
+
+**Last Commands:**
+- Navigate with your arrow keys in the history of your commands
+- `history` → Show last commands
+- `history | grep shh` → Search for specific commands in your last commands (in this case for ssh commands)
+- `!!` → last command
+- `!123` → run command number 123 (you get numbers via `history` command)
+- `!ssh` → runs last ssh command
+
+> Interactive history search available via shortcut `Ctrl + R`
+
+<br><br>
+
+[**Install Programs and Unpack Files**](#install-programs)
+
+<br><br>
+
+**Command Argument Help:**
+
+- If you don't know the available arguments, you can get all arguments via:
+    ```bash
+    command --help
+
+    # Example:
+    du --help
+    ```
+- And if you do not know what they do (and see available options) this command helps:
+    ```bash
+    man command
+
+    # Examples:
+    man du
+    man grep
+    ```
+    Naviagtion inside of man:
+    - `/text` → search
+    - `n` → next result
+    - `q` → quit
+- Info Page:
+    ```bash
+    info command
+
+    # Example:
+    info grep
+    ```
+- Quick Info:
+    ```bash
+    whatis command
+
+    # Example:
+    whatis grep
+    ```
+
 
 <br><br>
 
@@ -449,7 +588,7 @@ Pipes:<br>
 > - Relative path does not start with /
 >     - They start with `.`, `..` or the Folder/File name directly
 > - The shell is not the same as the terminal (see [terminology chapter](#terminal-terminology))
-> - TTY is a real console -> GNOME Terminal is a terminal emulator
+> - TTY is a real console → GNOME Terminal is a terminal emulator
 > - You can run multiple TTY sessions simultaneously.
 
 <br><br>
@@ -601,7 +740,7 @@ Open:
         sudo apt install pdfarranger
         ```
         - Merge / split / reorder pages
-    - `qpdf` (terminal tool -> for password protection)
+    - `qpdf` (terminal tool → for password protection)
         ```bash
         sudo apt install qpdf
         ```
@@ -618,12 +757,12 @@ Open:
 ### File-System-Structure Explained
 
 In short:
-Personal work -> `/home` <br>
-System configuration -> `/etc` <br>
-Installed programs -> `/usr` <br>
-Logs -> `/var/log` <br>
-Manual third-party software -> `/opt` <br>
-Temporary files -> `/tmp`
+Personal work → `/home` <br>
+System configuration → `/etc` <br>
+Installed programs → `/usr` <br>
+Logs → `/var/log` <br>
+Manual third-party software → `/opt` <br>
+Temporary files → `/tmp`
 
 <br><br>
 
@@ -793,7 +932,7 @@ In Ubuntu the default shell is called `bash`. The shell interprets the commands 
 | Type | Name | How to Access | Description |
 | --- | --- | --- | --- |
 | Virtual Console | tty1–tty6 | `Ctrl` + `Alt` + `F1–F6` | Text-only console running directly on the system. Needed for installing GPU drivers |
-| Graphical Terminal Emulator | GNOME Terminal | Applications  -> Terminal | GUI program that emulates a terminal |
+| Graphical Terminal Emulator | GNOME Terminal | Applications  → Terminal | GUI program that emulates a terminal |
 | Graphical Terminal Emulator | Konsole | Install KDE | KDE terminal emulator |
 | Graphical Terminal Emulator | Xfce Terminal | Xfce desktop | Lightweight terminal emulator |
 | Graphical Terminal Emulator | Tilix | `sudo apt install tilix` | Tiling terminal emulator |
@@ -825,7 +964,7 @@ Important distinction:
 > - Maintain a virtual text grid
 > - Render it properly
 > - Simulate scrolling behavior
-> That is active behavior reproduction -> it is not just a visual interface.
+> That is active behavior reproduction → it is not just a visual interface.
 
 <br><br>
 
@@ -873,7 +1012,7 @@ Remote example:
 
 #### Understanding TTY
 
-TTY is a text-only terminal/interface to interact with the Linux kernel directly. It is the base interface between the user and the Ubuntu system -> even when having a GUI, the GUI runs on top of a TTY, because TTYs act as the foundational input/output layer.<br>
+TTY is a text-only terminal/interface to interact with the Linux kernel directly. It is the base interface between the user and the Ubuntu system → even when having a GUI, the GUI runs on top of a TTY, because TTYs act as the foundational input/output layer.<br>
 On top of a TTY, a display server such as XOrg Server or Wayland handles graphical output and input devices, while a display manager like GDM starts the graphical session and login screen, which then launches the desktop environment (most likely GNOME) that provides the windows, panels, and overall graphical user interface running on top of the display server and underlying TTY.
 
 
@@ -921,12 +1060,12 @@ Controls:
 #### Movement in Terminal
 
 In the terminal you are always at a given path in your file system which is exactly left to your input `current-path> our-input-comes-here`. Of cause you see previous command inputs and can fill them by using the up and down-arrow-keys to get previous commands (sometimes helpful).<br>
-Also important to note is that you can use `tab` to autocomplete some commands and paths (for example type a letter and then press `tab` and you will get a auto-completion of a file or folder in your current directory strting with that -> and you can repeat pressing `tab` to get another proposal for auto-completion if there is a file starting also with that).
+Also important to note is that you can use `tab` to autocomplete some commands and paths (for example type a letter and then press `tab` and you will get a auto-completion of a file or folder in your current directory strting with that → and you can repeat pressing `tab` to get another proposal for auto-completion if there is a file starting also with that).
 
 Now just use `cd` command to move. You can move relative from your current position `./FOLDERNAME` or `FOLDERNAME`. Or use absolute paths `cd /home/username/FOLDER` or `cd ~/data` (`~` is an alias for the user home path).<br>
 And to see which files and folders are available use `ls`.
 
-> You can also use relative paths, which are relative from your current path. `.` is the current path and you can do something like: `ls .`. You can also move/get path down in the file-structure relative to your current position using `.YOUR_FOLDER/YOUR_OTHER_FOLDER`. And of course you can also move/get path up relative to your current position `..` -> for example `ls ..`, `../YOUR_FILE` or `../../../FOLDER/FILENAME`.
+> You can also use relative paths, which are relative from your current path. `.` is the current path and you can do something like: `ls .`. You can also move/get path down in the file-structure relative to your current position using `.YOUR_FOLDER/YOUR_OTHER_FOLDER`. And of course you can also move/get path up relative to your current position `..` → for example `ls ..`, `../YOUR_FILE` or `../../../FOLDER/FILENAME`.
 
 
 Paths to remeber:
@@ -978,37 +1117,85 @@ cat /proc/cpuinfo
 
 #### Get GPU Info
 
-```bash
-nvidia-smi
-```
+- Via Nvidia-GPU:
+    ```bash
+    nvidia-smi
+    ```
 
-With more details
-```bash
-nvidia-smi -q
-```
+    With more details
+    ```bash
+    nvidia-smi -q
+    ```
 
-Live show
-```bash
-nvidia-smi -l
-```
+    Live show
+    ```bash
+    nvidia-smi -l
+    ```
 
-Compact some important informations
-```bash
-nvidia-smi --query-gpu=name,memory.total,driver_version,compute_cap --format=csv
-```
+    Compact some important informations
+    ```bash
+    nvidia-smi --query-gpu=name,memory.total,driver_version,compute_cap --format=csv
+    ```
+- If using **AMD** GPU, you should install **ROCm**. Note that you need an Linux OS (like Ubuntu) → [see requirements](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/reference/system-requirements.html).
+Install it via [terminal](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/quick-start.html) [or see the official webiste](https://www.amd.com/de/products/software/rocm/ai.html#resources).
+
+
+    Get GPU Infos:
+    ```bash
+    rocm-smi
+    # or (depends on kind of installation)
+    /opt/rocm/bin/rocm-smi
+    ```
+
+    Get GPU Infos as live monitor (every 3 seconds):
+    ```bash
+    watch -n 3 rocm-smi
+    ```
+
+    Get GPU usage:
+    ```bash
+    rocm-smi --showuse
+    ```
+
+    Get GPU memory (VRAM):
+    ```bash
+    rocm-smi --showmemuse
+    ```
+
+    Get GPU temperature:
+    ```bash
+    rocm-smi --showtemp
+    ```
+
+    Get GPU all informations:
+    ```bash
+    rocm-smi --showallinfo
+    ```
+
+    Get Processes on GPU:
+    ```bash
+    rocm-smi --showpids
+    ```
+
+    And there also alternative tools:
+    ```bash
+    sudo apt install radeon
+    radeontop
+    ```
+    ```bash
+    sudo apt install nvtop
+    nvtop
+    ```
+    ```bash
+    lspci | grep -i vga
+    ```
 
 AI-relevant:
 - Name
 - VRAM (memory.total)
 - Compute Capability
-- CUDA Version (nvidia-smi ganz oben)
+- CUDA Version (nvidia-smi on top)
 - Tensor Cores (architecturedependent)
-
-
-If not having nvidia
-```bash
-lspci | grep -i vga
-```
 
 
 #### Get RAM info
@@ -1039,13 +1226,13 @@ Just download [the installer](https://www.virtualbox.org/wiki/Downloads) and fol
 
 A few tips:
 - give the machine/virtual env enough RAM and ressources
-- set the keyboard to german (or whatever you have) in the virtual OS settings (in Ubunut: Settings -> Keyboard)
+- set the keyboard to german (or whatever you have) in the virtual OS settings (in Ubunut: Settings → Keyboard)
 - set a shared folder
     1. On Virtual Box, choose your virtual env, hit settings and go to **Shared Memory**
     2. Add another memory item, with:
-        - Folde-Path -> where the disk/memory is on the real OS (e.g. `M:\`)
-        - Folder-Name -> what the disk should be named like (e.g. `M_DRIVE`)
-        - Connectionpoint -> where it should be connecected to (e.g. `/home/vboxuser/external_drives/`)
+        - Folde-Path → where the disk/memory is on the real OS (e.g. `M:\`)
+        - Folder-Name → what the disk should be named like (e.g. `M_DRIVE`)
+        - Connectionpoint → where it should be connecected to (e.g. `/home/vboxuser/external_drives/`)
         - also hit `automatic connection` and `make permanent for the machine`
     3. Now start the virtual env and click in the top bar on `devices` and on `Insert guest extensions`
     4. Now open the terminal and type following:
