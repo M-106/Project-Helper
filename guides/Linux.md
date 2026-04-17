@@ -15,11 +15,13 @@ This is a helper documentation for Linux. Use it as reference.
 
 Contents:
 - [Installation](#installation)
-- [Interesting Software](#interesting-software)
+- [Install Programs](#install-programs)
 - [Commands](#commands)
 - [Interesting Software](#interesting-software)
 - [File-System-Structure Explained](#file-system-structure-explained)
 - [Get Hardware Specs](#get-hardware-specs)
+- [Encrypt Files](#encrypt-files)
+- [Signing Files](#signing-files)
 - [Virtual Box](#virtual-box)
 <!--
 - [PDF Editing (password protection, signing)](#pdf-editing)
@@ -215,9 +217,24 @@ sudo apt install build-essential cmake meson ninja-build git
     # -L = follow redirects
     # -O iriginal filename
     ```
-4. **Git Projects** (from GitHub for example)<br>
+4. **`deb` Files**<bR>
+    Often software comes as `.deb` file, there are 3 easy ways to install software like this.
+    1. Find the file in the file explorer and right-click on it and choose open with Applicationcenter (Ubuntu Store)
+    2. Use `apt` (open the terminal `CRTL + Alt + T` and navigate to the folder where the file is `cd ~/Downloads`)
+        ```bash
+        sudo apt install ./filename.deb
+        ```
+    3. Use the traditional debian based package manager (open the terminal `CRTL + Alt + T` and navigate to the folder where the file is `cd ~/Downloads`)
+        ```bash
+        sudo dpkg -i filename.deb
+        ```
+        If a error occur, you might have to install another package:
+        ```bash
+        sudo apt install -f
+        ```
+5. **Git Projects** (from GitHub for example)<br>
     [See our Git Guide](./Git_Helper.md)
-5. **Snap**<br>
+6. **Snap**<br>
     Snap is a package management tool, independent of the used Ubuntut version and runs the program in a own environment which comes with performance decreases.
 
     Installation and removement:
@@ -251,7 +268,7 @@ sudo apt install build-essential cmake meson ninja-build git
     snap refresh --list
     sudo snap refresh
     ```
-6. **Flatpak**<br>
+7. **Flatpak**<br>
     Flatpak is like a community version of snap.
 
     Setup:
@@ -275,7 +292,7 @@ sudo apt install build-essential cmake meson ninja-build git
     ```bash
     flatpak uninstall --unused
     ```
-7. **Source Build**<br>
+8. **Source Build**<br>
     Somtimes you donwload just the source code but have to compile it for your system by yourself. Compiling is the process to convert a program from a more High-Level programming language like C++ to binary machine-code which can be run by your CPU/OS directly.
 
     Most of following variants have following steps:
@@ -372,6 +389,7 @@ sudo apt install build-essential cmake meson ninja-build git
 - `find . -type f` → only files
 - `find . -type d` → only directories
 - `find folder/ -name "*.txt" -exec grep "hello" {} +` → find all files which end with txt and have hello in the file
+- `whereis python` → finds/outputs the absolute path of the program
 
 
 > This gets powerful in combination `ls -l | grep ".txt"`, finds all files with txt ending → uses the output of the previous command as text input. Also useful `find folder/ -name "*.txt" | xargs grep "hello"`, which finds all files which include hello (inside of the file) and .txt ending in the filename.
@@ -406,7 +424,7 @@ Commands:
 <br><br>
 
 **Disk and System Info:**
-- `df -h` → disk usage
+- `df -h` → disk usage (or even better: `df -h .`)
 - `du -sh folder` → folder size
 - `free -h` → memory usage
 - `uname -a` → system info
@@ -539,6 +557,15 @@ Pipes:<br>
 
 <br><br>
 
+**Create Links:**
+- `sudo ln -s /media/tobia/HDD ~/HDD` → creates a link to another directory (use it as it would be here)
+    - `sudo ln -s /opt/julia/bin/julia /usr/local/bin/julia` → `/usr/local/bin/` directory is included in the search path when you type a command into the terminal, so this command makes the program available for easy commands -> now you just can write `julia`
+- `ls -l ~/HDD` → checks the real path of a link and help checking if the disk is mounted currently
+
+> This can be very helpful, in order to make installed programs easy accessable
+
+<br><br>
+
 **Command Argument Help:**
 
 - If you don't know the available arguments, you can get all arguments via:
@@ -596,6 +623,7 @@ Pipes:<br>
 ---
 ### Interesting Software
 
+- Firefox (often already installed), Chrome and Microsoft Edge Brwoser (just open the `.deb` files witht he app store in the file-explorer)
 - Bitwarden <br>
     Via Ubuntu Software Center
 - Git <br>
@@ -670,7 +698,7 @@ Pipes:<br>
     ```
     Install TexStudio:
     ```bash
-    sudo apt install texstudio
+    sudo apt install texlive-full biber
     ```
 - Calculator
     - GNOME Calculator
@@ -693,10 +721,130 @@ Pipes:<br>
     sudo apt update
     sudo apt install typora
     ```
+- Unreal Engine
+    1. Follow the steps of the [official website](https://dev.epicgames.com/documentation/unreal-engine/downloading-source-code-in-unreal-engine) to get access to their GitHub projects, they wrote (I cite them directly):
+        1. Navigate to [GitHub](https://github.com/) and sign up for an account.
+        2. Sign in to [UnrealEngine.com](https://www.unrealengine.com/) with your verified Epic Games [account](https://accounts.unrealengine.com/). To open your account dashboard, hover over your username, and select Personal from the drop-down menu.
+        3. With your account dashboard open, select the Connections tab from the sidebar. Select the Accounts tab, and then select the Connect button below the GitHub icon.
+        4. If you have not already signed the Unreal Engine End User License Agreement, you will need to read through its terms and select the check box, then select Link Account. If you are signed out of your GitHub account, you will be directed to GitHub to sign in after clicking the Link Account button.
+        5. To complete the OAuth App Authorization process, click the Authorize EpicGames button. You can learn more about this process in [GitHub’s overview on Authorizing OAuth Apps](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps).
+        6. GitHub will send an email inviting you to join the @EpicGames organization on GitHub. You must select the Join @EpicGames button in this email within seven days to complete the GitHub and Epic Games account linking process.
+        7. Upon completion, you will receive an email from Epic Games verifying that your GitHub and Epic Games accounts were successfully linked. If you don’t receive a confirmation email, or if your account is experiencing problems, get help from Customer Service. You are now ready to get started by going to our [GitHub page](https://github.com/EpicGames/UnrealEngine) (login required) to download the full source code.
+    2. You might want to create a ssh key and share with github
+        1. Open your terminal and create a ssh key (choose the location as you which, maybe `~/.ssh/github`):
+            ```bash
+            ssh-keygen -t ed25519 -C "your_email@example.com"
+            ```
+        2. Get the public key part:
+            ```bash
+            cat ~/.ssh/id_ed25519.pub
+            # or if you named it like me:
+            cat ~/.ssh/github.pub
+            ```
+        3. Go to GitHub → Settings → SSH and GPG keys → New SSH key → paste it
+    2. Clone Repo -> change `4.27` to the version you are looking for
+        ```bash
+        git clone -b 4.26 git@github.com:EpicGames/UnrealEngine.git
+        # or if you decided to not use ssh:
+        git clone -b 4.26 https://github.com/EpicGames/UnrealEngine.git
+        ```
+    3. Run Setup Scripts
+        ```bash
+        cd UnrealEngine
+        ./Setup.sh
+        ./GenerateProjectFiles.sh
+        ```
+    4. Build the Engine
+        ```bash
+        make
+        ```
+    5. Make it direct callable (don't use a relative path here and change it to your absolute path)
+        ```bash
+        sudo ln -s /media/tobia/HDD/UnrealEngine/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
+        # or if you do not know your absolute path, this should work for sure if you are in the UnrealEngine folder
+        sudo ln -s $(pwd)/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
+        ```
+    6. Start your Unreal Engine
+        ```bash
+        UnrealEditor
+        ```
+- rclone ([also see here for explanation](./Cloud.md))
+    ```bash
+    sudo apt install rclone
+    ```
+- OBS Studio -> [see download page](https://obsproject.com/de/download) or see the unoffical release in Ubuntu Software Center
 
 
+Interesting Software in the Ubuntu Appstore:
+- > Notice that some of the previous/other programs are maybe also available in the Ubuntu Software Center, as Bitwarden, Firefox and LibreOffice which we listed already.
+- (Bitwarden)
+- (firefox)
+- (libreoffice)
+- (firmware-updater)
+- (GNOME System Monitor)
+- (OBS Studio)
+- (Okular)
+- VSCode
+- CLion (C++ IDE)
+- JupyterLab Desktop
+- julia
+- Remmina
+- thunderbird (mail program)
+- Telegram
+- Discord
+- Text Editor
+- Vivaldi (eurpean alternative to Chrome and Edge)
+- Colibri (simple Browser)
+- WonderWall
+- BingWall
+- ColorWall
+- kolourpaint
+- cloudcompare (for working with point clouds)
+- Numpy viewer
+- VLC
+- Steam
+- Minecraft Installer
+- youtube-dl
 
-Open:
+
+- PDF Reading / Page-Adding / Signing / Password Protection
+    - Okular (often preinstalled and also available in Ubuntu Appstore)
+        ```bash
+        sudo apt update
+        sudo apt install okular
+        ```
+        - Read PDFs
+        - Add annotation and sinatures
+        - Basic editing
+    - LibreOffice Draw (often preinstalled and also available in Ubuntu Appstore)
+        ```bash
+        sudo apt install libreoffice
+        ```
+        - Add/remove pages
+        - Edit PDF content
+    - PDF Arranger
+        ```bash
+        sudo apt install pdfarranger
+        ```
+        - Merge / split / reorder pages
+    - Master PDF Editor for Linux
+        - Download in Ubuntu Appstore
+        - Alternativly download via snap:
+            ```bash
+            sudo snap install master-pdf-editor-5
+            ```
+        - Many Editor features (drawing, add image) and also some basic other Features like changing the page size and such things
+    - Stirling PDF [see installation guide](https://docs.stirlingpdf.com/Installation/Unix%20Installation/) or [the official page](https://www.stirling.com/download)
+        - Many many features (it is like a Linux version of PDF24)
+    - `qpdf` (terminal tool → for password protection)
+        ```bash
+        sudo apt install qpdf
+        ```
+        Encrypt PDF:
+        ```bash
+        qpdf --encrypt yourpassword yourpassword 256 -- input.pdf output.pdf
+        ```
+        - [also see the encryption section](#encrypt-files)
 - Presentation
     - Powerpoint Online
     - LibreOffice Impress
@@ -709,8 +857,14 @@ Open:
         ```
         Or use the VSCode extension.
     - Or use Google Slides
-- Normal Writing (Latex? Word Online)
-- Notes (OneNote Online)
+- Normal Writing
+    - Latex (`sudo apt install texlive-full biber`)
+    - Word Online
+- Notes
+    - OneNote Online
+- To Do
+    - Microsoft To Do Online
+    - Super Productivity (Ubuntu Software Center)
 - Image Editing (Luminar Neo not available?)
     - [Raw Therapee](https://rawtherapee.com/)
         ```bash
@@ -720,34 +874,7 @@ Open:
         ```bash
         sudo apt update && sudo apt install shotwell
         ```
-- PDF Reading / Page-Adding / Signing / Password Protection
-    - Okular
-        ```bash
-        sudo apt update
-        sudo apt install okular
-        ```
-        - Read PDFs
-        - Add annotation and sinatures
-        - Basic editing
-    - LibreOffice Draw
-        ```bash
-        sudo apt install libreoffice
-        ```
-        - Add/remove pages
-        - Edit PDF content
-    - PDF Arranger
-        ```bash
-        sudo apt install pdfarranger
-        ```
-        - Merge / split / reorder pages
-    - `qpdf` (terminal tool → for password protection)
-        ```bash
-        sudo apt install qpdf
-        ```
-        Encrypt PDF:
-        ```bash
-        qpdf --encrypt yourpassword yourpassword 256 -- input.pdf output.pdf
-        ```
+
 
 
 
@@ -1213,6 +1340,74 @@ Just total RAM
 ```bash
 grep MemTotal /proc/meminfo
 ```
+
+
+<br><br>
+
+---
+
+### Encrypt Files
+
+1. Install the package (we use the modern `age` (actual good encryption) package)
+    ```bash
+    sudo apt install age
+    ```
+2. Protect your files via a password
+    1. Encrypt your file (the terminal will ask you towards a password in this process)
+        ```bash
+        age -p -o your_file.pdf.age your_file.pdf
+        ```
+    2. Decrypt your file (maybe the person you sended the file and gave the password -> maybe told him or analog)
+        ```bash
+        age -d -o your_file.pdf your_file.pdf.age
+        ```
+3. Protect your files via assymetric encryption
+    1. The person who want to get the document have to created a key pair and send away the public key (everybody can encrypt but only you can decrypt)
+        ```bash
+        age-keygen -o my_key.txt
+        ```
+        The file will contain an public key (begins with `age1`), which you send to the person who want to send you something and the secret key you keep for yourself.
+    2. Now you can encrypt via your public key from the other person
+        ```bash
+        age -r age1ql3z7... -o your_file_encrypted.age your_file.pdf
+        ```
+    3. And you send this encrpyted file to the other person, who can uses his secret key to decrypt it:
+        ```bash
+        age -d -i my_key.txt your_file_encrypted.age > your_file.pdf
+        ```
+    4. > You can also use ssh-keys from other uses via GitHub, which is a great improvement of this process: `curl https://github.com/other_person.keys | age -R - -o your_file_encrypted.age your_file.pdf`
+
+> Another way is, to use 7zip:
+> `sudo apt install p7zip-full`
+> `7z a -p -mem=AES256 your_file_encrypted.7z your_file.pdf`
+> **OR** in most linux systems you can open the file explorer and there you can with right click compromise the files (or files) and also add a password to the compromised file in this process.
+
+
+<br><br>
+
+---
+
+### Signing Files
+
+1. Install `minisign`
+    ```bash
+    sudo apt install minisign
+    ```
+2. Create a key pair
+    ```bash
+    minisign -G
+    ```
+    - `minisign.pub` -> this file is the file you can give everybody, so they can use it to verify the correctness of your signiture
+    - `minisign.key` -> your private key with which you sign files to show, that this file really comes from you and is not modified
+3. Signing a file
+    ```bash
+    minisign -S -m your_file.pdf
+    ```
+    Now you can send the genrated `your_file.pdf.minisig` and your public key
+4. Check Signature
+    ```bash
+    minisign -V -p minisign.pub -m your_file.pdf
+    ```
 
 
 
