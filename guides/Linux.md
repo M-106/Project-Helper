@@ -57,23 +57,39 @@ On Windows:
 
 In Linux there are 3 most ways to install software. The `apt` installation management system has older but stable version, then there is the `Ubuntu Software Center` for standard software and programs are often packed in a compromised version (`TAR`/`TAR.GZ`/`ZIP`). It follows a usage description of how to install software in these different ways.
 
+<br>
+
 Check program versions and installation with:
 ```bash
 program --version
 ```
 
+<br>
+
 If you have a program and do not know where this program comes from, check it with:
 ```bash
 which programname
+# or
+whereis programname
 ```
 - `usr/bin` → apt
 - `usr/local/bin` or `opt/` → from yourself (maybe from `tar.gz`)
 - `snap/bin` → snap
 - `var/lib/flatpak` → flatpak
 
+<br>
+
 Following is a good base installtion:
 ```bash
 sudo apt install build-essential cmake meson ninja-build git
+```
+
+<br>
+
+And use linking to make commandline programs more easy to start (with this linking you can start the program with only its name because a link to it is in a search folder):
+```bash
+cd /media/tobia/HDD/programs/Zotero
+sudo ln -s $(pwd)/zotero /usr/local/bin/zotero
 ```
 
 
@@ -389,7 +405,8 @@ sudo apt install build-essential cmake meson ninja-build git
 - `find . -type f` → only files
 - `find . -type d` → only directories
 - `find folder/ -name "*.txt" -exec grep "hello" {} +` → find all files which end with txt and have hello in the file
-- `whereis python` → finds/outputs the absolute path of the program
+- `whereis python` → finds/outputs the absolute path of the program. It more answers the question: Where are all related files for this program? (searches in a broader set of standard system directories than `which`)
+- `which python` → it answers the question: What command will run if I type this?
 
 
 > This gets powerful in combination `ls -l | grep ".txt"`, finds all files with txt ending → uses the output of the previous command as text input. Also useful `find folder/ -name "*.txt" | xargs grep "hello"`, which finds all files which include hello (inside of the file) and .txt ending in the filename.
@@ -560,6 +577,7 @@ Pipes:<br>
 **Create Links:**
 - `sudo ln -s /media/tobia/HDD ~/HDD` → creates a link to another directory (use it as it would be here)
     - `sudo ln -s /opt/julia/bin/julia /usr/local/bin/julia` → `/usr/local/bin/` directory is included in the search path when you type a command into the terminal, so this command makes the program available for easy commands -> now you just can write `julia`
+    - `sudo ln -s $(pwd)/zotero /usr/local/bin/zotero` → even better to get the absolute path without making mistakes with the path
 - `ls -l ~/HDD` → checks the real path of a link and help checking if the disk is mounted currently
 
 > This can be very helpful, in order to make installed programs easy accessable
