@@ -822,6 +822,7 @@ Interesting Software in the Ubuntu Appstore:
 - VLC
 - Steam
 - Minecraft Installer
+- retroarch
 - youtube-dl
 
 
