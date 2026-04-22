@@ -24,6 +24,7 @@ Contents:
 - [Signing Files](#signing-files)
 - [Virtual Box](#virtual-box)
 - [Own Minecraft Server](#own-minecraft-server)
+- [Perform MOK Management](#perform-mok-management)
 <!--
 - [PDF Editing (password protection, signing)](#pdf-editing)
 -->
