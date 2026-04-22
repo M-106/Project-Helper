@@ -93,6 +93,7 @@ Local Installation of the Project-Helper Guides:
 
 ### <------ C++ ------>
 ### [C++](./external/CPP/README.md) [[repo link](https://github.com/M-106/CPP)]
+### [Vulkan](./external/Vulkan/README.md) [[repo link](https://github.com/M-106/Vulkan)]
 ### [Doxygen](guides/Doxygen.md)
 
 

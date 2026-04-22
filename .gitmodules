@@ -52,3 +52,6 @@
 [submodule "external/Image-Physics-Simulation"]
 	path = external/Image-Physics-Simulation
 	url = https://github.com/xXAI-botXx/Image-Physics-Simulation.git
+[submodule "external/Vulkan"]
+	path = external/Vulkan
+	url = https://github.com/M-106/Vulkan.git
