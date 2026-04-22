@@ -23,6 +23,7 @@ Contents:
 - [Encrypt Files](#encrypt-files)
 - [Signing Files](#signing-files)
 - [Virtual Box](#virtual-box)
+- [Own Minecraft Server](#own-minecraft-server)
 <!--
 - [PDF Editing (password protection, signing)](#pdf-editing)
 -->
@@ -49,6 +50,9 @@ On Windows:
 8. Follow the installation process
 
 > You may want to go into your boot menu and select the boot to the usb stick.
+
+Bug-Fix:
+- If everything is fine but then a window opens (which should be the installation window) and it is just a jank of white and black boxes then you might have an nvidia gpu and have to set of the visuals via GPU (becuase the driver is not installed yet). -> Just boot your system again but before you click on `try/install Ubuntu`, press `E` and naviagte with your arrow-keys to a line with `quiet splash` and at the end add `nomodeset` and then press `F10` and everything should be fine.
 
 <br><br>
 
@@ -709,13 +713,9 @@ Pipes:<br>
     sudo update-alternatives --config g++
     ```
 - Latex <br>
-    Install LateX:
+    Install LaTex, Biber and TexStudio:
     ```bash
     sudo apt update
-    sudo apt install texlive-full
-    ```
-    Install TexStudio:
-    ```bash
     sudo apt install texlive-full biber
     ```
 - Calculator
@@ -1466,9 +1466,112 @@ A few tips:
 
 
 
+<br><br>
+
+---
+
+### Own Minecraft Server
 
 
+1. Install Minecraft via Ubuntu Software Center or from the official webiste from Microsoft
+    - You can download the `.deb` (debian) version and install it via `sudo apt install ./Minecraft.deb`
+2. Install Java 
+    ```bash
+    sudo apt install default-jre
+    sudo apt install default-jdk
+    ```
+3. Download Minecraft Server Java File [from official Website](https://www.minecraft.net/de-de/download/server)
+    - And put it into a new folder
+4. Start the Minecraft server (without `nogui` will have an UI) -> first time will not start but creates all files needed
+    ```bash
+    cd /home/tobia/HDD/Programs/minecraft-server
+    java -Xmx4G -Xms4G -jar server.jar nogui
+    ```
+    `Xmx4G` sets the max RAM usage.<br>
+    `Xms4G` sets the min RAM usage.<br>
+    You can adjust these values.
+5. Accept EULA license
+    1. Open the text file
+        ```bash
+        nano eula.txt
+        ```
+    2. Accept license
+        ```bash
+        # change, line with
+        eula=false
+        # to
+        eula=true
+        ```
+6. Start your Server:
+    ```bash
+    java -Xmx4G -Xms2G -jar server.jar nogui
+    # or from any folder
+    java -Xmx4G -Xms2G -jar /home/tobia/HDD/Programs/minecraft-server/server.jar nogui
+    ```
+7. Let Friends connect to the server<br>You have to be in the same network and for that you can share a port (classical) or use software to make as if you were in the same network. In Minecraft Java-Edition you than can see server which you can connect to.
+    - Tailscale / ZeroTier -> VPN Services, cost something (not recommended)
+        1. Install Tailscale on every computer
+        2. Everybody is in the same private LAN
+        3. Friends connect over the IP
+    - Port-Forwarding
+        1. Find your local IP adress (example adress: 192.168.178.34)
+            ```bash
+            ip a
+            ```
+        2. Open Minecraft Port
+            1. Open Router settings via opening your browser and search: `http://192.168.1.1` or `http://192.168.50.1` (or router brand specific `http://router.asus.com`)
+            2. Login with your setted user and password
+            3. Activate a port
+                - Open `WAN` in the menu
+                - Then `Port Forwarding` or `Virtual Server / Port Forwarding`
+                - Click `Add Profile`
+                - Add something like:
+                    ```bash
+                    Service Name: Minecraft
+                    Port Range: 25565
+                    Local IP: the found IP adress (example: 192.168.1.34)
+                    Local Port: 25565
+                    Protocol: TCP
+                    Enable: ✔️
+                    ```
+        3. Friend need now your public IP address (is different from your local adress)
+            - You find your IP at [https://ifconfig.me](https://ifconfig.me) or just search for `what is my ip` (then most likely looks like: `84.123.55.201`)
+            - The friend opens Minecraft Java Edition and opens `Multiplayer` and `Direct Connection` and types `server_public_ip:server_open_port` (example: `84.123.55.201:25565`)
 
+> In the server.properties `nano server.properties` you can adjust many settings:
+> - Schwierigkeit
+> - Whitelist
+> - Max‑Spieler
+> - Seed
+> - PvP
+> - Online‑Mode
+> - View‑Distance
+> <br><br>
+> You should set
+> - online-mode=true
+> - white-list=true
+>   - whitelist add <Name>
+
+
+> Close the Port when you not play and open it again when you play.
+
+
+<br><br>
+
+---
+
+### Perform MOK Management
+
+
+If your system always starts with another screen saying `Perform MOK Management` then your system installed a new driver and this page just wants to help you secure booting. 
+
+If you want to start your system just choose `Continue boot` and then `Ubuntu`.<br>
+But if it comes again and again, you should press `Enroll MOK` and then:
+1. `View key` (optional)
+2. `Continue`
+3. Register key -> `Yes`
+4. Type your password (if it asks for)
+5. Then choose `Reboot`
 
 
 
