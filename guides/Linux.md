@@ -1480,6 +1480,13 @@ A few tips:
     ```bash
     sudo apt install default-jre
     sudo apt install default-jdk
+    sudo apt install openjdk-25-jdk
+
+    # check via
+    java --version
+
+    # for multiple versions, update jdk
+    sudo update-alternatives --config java
     ```
 3. Download Minecraft Server Java File [from official Website](https://www.minecraft.net/de-de/download/server)
     - And put it into a new folder
@@ -1522,7 +1529,7 @@ A few tips:
         2. Open Minecraft Port
             1. Open Router settings via opening your browser and search: `http://192.168.1.1` or `http://192.168.50.1` (or router brand specific `http://router.asus.com`)
             2. Login with your setted user and password
-            3. Activate a port
+            3. Activate a port (sometimes the activation of port forwarding is an extra option)
                 - Open `WAN` in the menu
                 - Then `Port Forwarding` or `Virtual Server / Port Forwarding`
                 - Click `Add Profile`
@@ -1536,7 +1543,7 @@ A few tips:
                     Enable: ✔️
                     ```
         3. Friend need now your public IP address (is different from your local adress)
-            - You find your IP at [https://ifconfig.me](https://ifconfig.me) or just search for `what is my ip` (then most likely looks like: `84.123.55.201`)
+            - You find your IP at [https://ifconfig.me](https://ifconfig.me) or from shell: `curl ifconfig.me/all` or `curl ifconfig.me/ip`, or just search for `what is my ip` (then most likely looks like: `84.123.55.201`)
             - The friend opens Minecraft Java Edition and opens `Multiplayer` and `Direct Connection` and types `server_public_ip:server_open_port` (example: `84.123.55.201:25565`)
 
 > In the server.properties `nano server.properties` you can adjust many settings:
