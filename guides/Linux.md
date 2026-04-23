@@ -894,6 +894,7 @@ Interesting Software in the Ubuntu Appstore:
         ```bash
         sudo apt update && sudo apt install shotwell
         ```
+- Variety (click in search bar on proposal) for wallpaper random choosing
 
 
 
