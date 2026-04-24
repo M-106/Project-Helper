@@ -16,6 +16,7 @@ Table of Contents:
 - [Data Transfer](#data-transfer)
 - [Wake on Lan](#wake-on-lan)
 - [GPU Healthcare (Nvidia)](#gpu-healthcare)
+- [CUDA](#cuda)
 - [PyTorch CUDA Version Support Check](#pytorch-cuda-version-support-check)
 - [PyTorch](#pytorch)
 - [TensorFlow](#tensorflow)
@@ -365,6 +366,9 @@ In order to train AI models we most likely need an accelerator (a GPU). And most
 
 For usage we need a Nvidia Driver and a CUDA installation.
 
+> Please refer to [the CUDA chapter](#cuda) (next chapter) in order to understand the relationship from NVIDIA driver and CUDA and how to install and remove it properly. In the following we include some informations about CUDA which often should be ignored. For example the installation via `sudo apt install -y nvidia-cuda-toolkit` is sometimes ok but often not the best way, so check out the next chapter for CUDA installation if you want. <br>
+> If you are not sure about CUDA, I recommend to read the first part of [the CUDA chapter](#cuda) and skip the optional CUDA installation in this part here (later you still can install it).
+
 <br>
 
 **Linux installation** <br>
@@ -372,7 +376,7 @@ For usage we need a Nvidia Driver and a CUDA installation.
 # Installation (Ubuntu/Debian example)
 sudo apt update
 sudo apt install -y nvidia-driver-535  # replace with latest recommended driver
-# Optional: install CUDA toolkit
+# Optional: install CUDA toolkit -> see next chapter for more details
 sudo apt install -y nvidia-cuda-toolkit
 
 # Testing
@@ -624,6 +628,131 @@ You might want to check out [PyTorch CUDA Version Support Check](#pytorch-cuda-v
    ```bash
    lspci | grep -i nvidia
    ```
+
+
+
+
+<br><br>
+
+---
+### CUDA
+
+**CUDA, Nvidia-Driver, PyTorch CUDA, and Docker explained**
+
+It is very important to learn the "NVIDIA Cake" else you will get lost during your work with GPU-acceleration.
+1. **Nvidia Driver:** This is the base part so that your computer (OS) can communicate with the physical GPU hardware.
+2. **CUDA Toolkit:** This toolkit is an developement environment for creating high-performance GPU-accelerated applications. It contains **nvcc** (the compiler), debugging tools and libraries like cuBLAS and cuDNN.
+3. **PyTorch/TensorFlow CUDA:** Modern AI libraries comes (if installed like that) with their own internal CUDA binaries (pre-compiled). So for the PyTorch commands/bindings there is already everything ready and you don't need to install CUDA only the driver is needed. 
+4. **Docker:** A virtualization application to start applications in isolated operating systems. Docker always uses NVIDIA driver from its host system BUT the CUDA Toolkit is in Docker different (it has it's own CUDA) which is very helpful.
+
+> The CUDA version in `nvidia-smi` is not an isntalled CUDa, it just shows the maximum possible CUDA Version on this NVIDIDA driver. The actual CUDA version is the version which come with `nvcc --version`, this can be different but must be equal or lower than the version from `nvidia-smi`.
+
+FIXME -> And when working with DOcker which can have multiple versions? Docker have its own NVdiada driver and CUDA?
+
+<br><br>
+
+**Install CUDA**
+
+> Notice that there are 2 ways: via `deb` and via `runfile`.<br>
+> It is strongly recommended to use the `runfile` option which will make it easier to handle specific CUDA version and remove it...but with both it is good possbile.
+
+Go to [the official website](https://developer.nvidia.com/cuda-toolkit-archive) and download the `runfile` for your debian (ubuntu) os or choose the `deb` variant and follow the steps which are shown on the website. Use `nvidia-smi` to get your current nvidia-driver version and choose a right cuda-toolkit verion via [compability website](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-compatibility.html#compat-minor).
+
+Example download from[the official website](https://developer.nvidia.com/cuda-toolkit-archive) via `runfile`:
+```bash
+wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
+chmod +x cuda_11.8.0_520.61.05_linux.run
+sudo sh cuda_11.8.0_520.61.05_linux.run
+```
+
+Example Output:
+```text
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CUDA Installer                                                               │
+│ - [X] Driver                                                                 │
+│      [X] 520.61.05                                                           │
+│ + [X] CUDA Toolkit 11.8                                                      │
+│   [X] CUDA Demo Suite 11.8                                                   │
+│   [X] CUDA Documentation 11.8                                                │
+│ - [ ] Kernel Objects                                                         │
+│      [ ] nvidia-fs                                                           │
+│   Options                                                                    │
+│   Install                                                                    │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up/Down: Move | Left/Right: Expand | 'Enter': Select | 'A': Advanced options │
+
+THEN AFTER INSTALLATION:
+
+(base) tobia@Vampire-Station:~/Downloads$ sudo sh cuda_11.8.0_520.61.05_linux.run
+[sudo] Passwort für tobia: 
+===========
+= Summary =
+===========
+
+Driver:   Not Selected
+Toolkit:  Installed in /usr/local/cuda-11.8/
+
+Please make sure that
+ -   PATH includes /usr/local/cuda-11.8/bin
+ -   LD_LIBRARY_PATH includes /usr/local/cuda-11.8/lib64, or, add /usr/local/cuda-11.8/lib64 to /etc/ld.so.conf and run ldconfig as root
+
+To uninstall the CUDA Toolkit, run cuda-uninstaller in /usr/local/cuda-11.8/bin
+***WARNING: Incomplete installation! This installation did not install the CUDA Driver. A driver of version at least 520.00 is required for CUDA 11.8 functionality to work.
+To install the driver using this installer, run the following command, replacing <CudaInstaller> with the name of this run file:
+    sudo <CudaInstaller>.run --silent --driver
+
+Logfile is /var/log/cuda-installer.log
+
+```
+
+> IMPORTANT: If you have already an NVIDIA driver you should **uncheck** the option to install the driver and in general it is recommended to only **check** the **CUDA Toolkit XX.X** option!
+
+<br><br>
+
+Additionally you propably need to set the path, so your system knows where the installed CUDA is:
+```
+nano ~/.bashrc
+
+# add these lines there
+# or change existing lines if needed
+
+# copy all following 4 lines with `Ctrl + C` and paste it at the end `Ctrl + Shift + V`
+
+# CUDA start
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+# CUDA end
+
+# now press `Ctrl + O` (and `ENTER`) and then `Strl + X`
+``` 
+
+<br><br>
+
+**Remove CUDA**
+
+This is the way if you used `deb` installation (if you used `sudo apt` to install cuda) for cleaning broken dependencies. If you installed different CUDA versions or something is messed up you can remove CUDA (not nvidia driver or something) with:
+```bash
+sudo apt remove --purge cuda\* nvidia-cuda-toolkit
+sudo apt autoremove --purge
+
+sudo apt --fix-broken install
+sudo dpkg --configure -a
+```
+
+If you used `runfile` then you should use the uninstaller:
+```bash
+# remove the Toolkit installed via runfile
+sudo /usr/local/cuda-X.Y/bin/cuda-uninstaller
+
+# remove the Driver installed via runfile (use with caution!)
+sudo /usr/bin/nvidia-uninstall
+```
+
+Now things like `nvcc --version` should not work.
+
+
 
 <br><br>
 
