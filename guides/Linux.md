@@ -16,8 +16,8 @@ This is a helper documentation for Linux. Use it as reference.
 Contents:
 - [Installation](#installation)
 - [Install Programs](#install-programs)
-- [Commands](#commands)
 - [Interesting Software](#interesting-software)
+- [Commands](#commands)
 - [File-System-Structure Explained](#file-system-structure-explained)
 - [Get Hardware Specs](#get-hardware-specs)
 - [Encrypt Files](#encrypt-files)
@@ -358,6 +358,262 @@ sudo ln -s $(pwd)/zotero /usr/local/bin/zotero
 <br><br>
 
 ---
+### Interesting Software
+
+- Firefox (often already installed), Chrome and Microsoft Edge Brwoser (just open the `.deb` files witht he app store in the file-explorer)
+- Bitwarden <br>
+    Via Ubuntu Software Center
+- Git <br>
+    ```bash
+    sudo apt update
+    sudo apt install git
+    ```
+- VSCode <br>
+    Via Ubuntu Software Center
+- Anaconda <br>
+    Download Installer
+    ```bash
+    wget https://repo.anaconda.com/archive/Anaconda3-latest-Linux-x86_64.sh
+    ```
+    Run installer (follow isntructions):
+    ```bash
+    bash Anaconda3-latest-Linux-x86_64.sh
+    ```
+    Verification:
+    ```bash
+    conda --version
+    ```
+- Python <br>
+    Install:
+    ```bash
+    sudo apt update
+    sudo apt install python3 python3-pip
+    ```
+    Verifiy:
+    ```bash
+    python3 --version
+    pip3 --version
+    ```
+- Julia <br>
+    Installation:
+    ```bash
+    sudo apt update
+    sudo apt install julia
+    ```
+    Verification:
+    ```bash
+    julia --version
+    ```
+    Alternative installation:
+    ```bash
+    wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.0-linux-x86_64.tar.gz
+    tar -xvzf julia-1.10.0-linux-x86_64.tar.gz
+    sudo mv julia-1.10.0 /opt/julia
+    sudo ln -s /opt/julia/bin/julia /usr/local/bin/julia
+    ```
+- C++ (Compiler) [or see here for a more complete installation](https://github.com/M-106/CPP/blob/main/docs/Basics/Installation.md#installation_on_linux) <br>
+    ```bash
+    sudo apt update
+    sudo apt install gcc g++
+    ```
+    Install a specific version:
+    ```bash
+    sudo apt install gcc-6 g++-6
+    ```
+    Switiching Versions:
+    ```bash
+    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 6
+    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
+
+    sudo update-alternatives --config g++
+    ```
+- Latex <br>
+    Install LaTex, Biber and TexStudio:
+    ```bash
+    sudo apt update
+    sudo apt install texlive-full biber
+    ```
+- Calculator
+    - GNOME Calculator
+        ```bash
+        sudo apt install gnome-calculator
+        ```
+    - Qalculate
+        ```bash
+        sudo apt update
+        sudo apt install qalculate-gtk
+        ```
+        Start with:
+        ```bash
+        qalculate-gtk
+        ```
+- Typora
+    ```bash
+    wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
+    sudo add-apt-repository 'deb https://typora.io/linux ./'
+    sudo apt update
+    sudo apt install typora
+    ```
+- Unreal Engine
+    1. Follow the steps of the [official website](https://dev.epicgames.com/documentation/unreal-engine/downloading-source-code-in-unreal-engine) to get access to their GitHub projects, they wrote (I cite them directly):
+        1. Navigate to [GitHub](https://github.com/) and sign up for an account.
+        2. Sign in to [UnrealEngine.com](https://www.unrealengine.com/) with your verified Epic Games [account](https://accounts.unrealengine.com/). To open your account dashboard, hover over your username, and select Personal from the drop-down menu.
+        3. With your account dashboard open, select the Connections tab from the sidebar. Select the Accounts tab, and then select the Connect button below the GitHub icon.
+        4. If you have not already signed the Unreal Engine End User License Agreement, you will need to read through its terms and select the check box, then select Link Account. If you are signed out of your GitHub account, you will be directed to GitHub to sign in after clicking the Link Account button.
+        5. To complete the OAuth App Authorization process, click the Authorize EpicGames button. You can learn more about this process in [GitHub’s overview on Authorizing OAuth Apps](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps).
+        6. GitHub will send an email inviting you to join the @EpicGames organization on GitHub. You must select the Join @EpicGames button in this email within seven days to complete the GitHub and Epic Games account linking process.
+        7. Upon completion, you will receive an email from Epic Games verifying that your GitHub and Epic Games accounts were successfully linked. If you don’t receive a confirmation email, or if your account is experiencing problems, get help from Customer Service. You are now ready to get started by going to our [GitHub page](https://github.com/EpicGames/UnrealEngine) (login required) to download the full source code.
+    2. You might want to create a ssh key and share with github
+        1. Open your terminal and create a ssh key (choose the location as you which, maybe `~/.ssh/github`):
+            ```bash
+            ssh-keygen -t ed25519 -C "your_email@example.com"
+            ```
+        2. Get the public key part:
+            ```bash
+            cat ~/.ssh/id_ed25519.pub
+            # or if you named it like me:
+            cat ~/.ssh/github.pub
+            ```
+        3. Go to GitHub → Settings → SSH and GPG keys → New SSH key → paste it
+    2. Clone Repo -> change `4.27` to the version you are looking for
+        ```bash
+        git clone -b 4.26 git@github.com:EpicGames/UnrealEngine.git
+        # or if you decided to not use ssh:
+        git clone -b 4.26 https://github.com/EpicGames/UnrealEngine.git
+        ```
+    3. Run Setup Scripts
+        ```bash
+        cd UnrealEngine
+        ./Setup.sh
+        ./GenerateProjectFiles.sh
+        ```
+    4. Build the Engine
+        ```bash
+        make
+        ```
+    5. Make it direct callable (don't use a relative path here and change it to your absolute path)
+        ```bash
+        sudo ln -s /media/tobia/HDD/UnrealEngine/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
+        # or if you do not know your absolute path, this should work for sure if you are in the UnrealEngine folder
+        sudo ln -s $(pwd)/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
+        ```
+    6. Start your Unreal Engine
+        ```bash
+        UnrealEditor
+        ```
+- rclone ([also see here for explanation](./Cloud.md))
+    ```bash
+    sudo apt install rclone
+    ```
+- OBS Studio -> [see download page](https://obsproject.com/de/download) or see the unoffical release in Ubuntu Software Center
+
+
+Interesting Software in the Ubuntu Appstore:
+- > Notice that some of the previous/other programs are maybe also available in the Ubuntu Software Center, as Bitwarden, Firefox and LibreOffice which we listed already.
+- (Bitwarden)
+- (firefox)
+- (libreoffice)
+- (firmware-updater)
+- (GNOME System Monitor)
+- (OBS Studio)
+- (Okular)
+- VSCode
+- CLion (C++ IDE)
+- JupyterLab Desktop
+- julia
+- Remmina
+- thunderbird (mail program)
+- Telegram
+- Discord
+- Text Editor
+- Vivaldi (eurpean alternative to Chrome and Edge)
+- Colibri (simple Browser)
+- WonderWall
+- BingWall
+- ColorWall
+- kolourpaint
+- cloudcompare (for working with point clouds)
+- Numpy viewer
+- VLC
+- Steam
+- Minecraft Installer
+- retroarch
+- youtube-dl
+
+
+- PDF Reading / Page-Adding / Signing / Password Protection
+    - Okular (often preinstalled and also available in Ubuntu Appstore)
+        ```bash
+        sudo apt update
+        sudo apt install okular
+        ```
+        - Read PDFs
+        - Add annotation and sinatures
+        - Basic editing
+    - LibreOffice Draw (often preinstalled and also available in Ubuntu Appstore)
+        ```bash
+        sudo apt install libreoffice
+        ```
+        - Add/remove pages
+        - Edit PDF content
+    - PDF Arranger
+        ```bash
+        sudo apt install pdfarranger
+        ```
+        - Merge / split / reorder pages
+    - Master PDF Editor for Linux
+        - Download in Ubuntu Appstore
+        - Alternativly download via snap:
+            ```bash
+            sudo snap install master-pdf-editor-5
+            ```
+        - Many Editor features (drawing, add image) and also some basic other Features like changing the page size and such things
+    - Stirling PDF [see installation guide](https://docs.stirlingpdf.com/Installation/Unix%20Installation/) or [the official page](https://www.stirling.com/download)
+        - Many many features (it is like a Linux version of PDF24)
+    - `qpdf` (terminal tool → for password protection)
+        ```bash
+        sudo apt install qpdf
+        ```
+        Encrypt PDF:
+        ```bash
+        qpdf --encrypt yourpassword yourpassword 256 -- input.pdf output.pdf
+        ```
+        - [also see the encryption section](#encrypt-files)
+- Presentation
+    - Powerpoint Online
+    - LibreOffice Impress
+        ```bash
+        sudo apt install libreoffice-impress
+        ```
+    - Marp
+        ```bash
+        sudo snap install marp
+        ```
+        Or use the VSCode extension.
+    - Or use Google Slides
+- Normal Writing
+    - Latex (`sudo apt install texlive-full biber`)
+    - Word Online
+- Notes
+    - OneNote Online
+- To Do
+    - Microsoft To Do Online
+    - Super Productivity (Ubuntu Software Center)
+- Image Editing (Luminar Neo not available?)
+    - [Raw Therapee](https://rawtherapee.com/)
+        ```bash
+        sudo apt update && sudo apt install rawtherapee
+        ```
+    - [Shotwell](https://shotwell-project.org/)
+        ```bash
+        sudo apt update && sudo apt install shotwell
+        ```
+- Variety (click in search bar on proposal) for wallpaper random choosing
+
+
+<br><br>
+
+---
 ### Commands
 
 <br>
@@ -589,6 +845,41 @@ Pipes:<br>
 
 <br><br>
 
+**System Alternatives:**
+
+Used to manage multiple versions of the same command (e.g. clang, gcc, python, java, ...).
+- `sudo update-alternatives --install /usr/bin/name name /path/to/program priority` → register a new version of a command
+    - example: `sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9`
+    - use `which clang-10` to find the location of a program (maybe you want to add clang-10 to clang) or like in the case before use `which g++-9` to get the location.
+- `sudo update-alternatives --config name` → choose which version is currently active
+- `update-alternatives --display name` → show all registered versions and the active one
+- `sudo update-alternatives --remove name /path/to/program` → remove a specific version from the alternatives system
+- `sudo update-alternatives --remove-all name` → completely reset all versions for that command
+
+<br>
+
+How it works:
+| Part               | Meaning                                       |
+| ------------------ | --------------------------------------------- |
+| `/usr/bin/name`    | the “global command” users type               |
+| `name`             | identifier group (e.g. clang, python)         |
+| `/path/to/program` | real binary being linked                      |
+| `priority`         | higher number = preferred default (auto mode) |
+
+<br>
+
+Priority Numbers (priority defines which version the system uses):
+| Range   | Meaning                                   |
+| ------- | ----------------------------------------- |
+| 0–50    | experimental / rarely used                |
+| 50–100  | optional tools                            |
+| 100     | common default choice                     |
+| 150–300 | preferred versions (user-installed tools) |
+| 1000+   | force override system default             |
+
+
+<br><br>
+
 **Command Argument Help:**
 
 - If you don't know the available arguments, you can get all arguments via:
@@ -640,262 +931,6 @@ Pipes:<br>
 > - The shell is not the same as the terminal (see [terminology chapter](#terminal-terminology))
 > - TTY is a real console → GNOME Terminal is a terminal emulator
 > - You can run multiple TTY sessions simultaneously.
-
-<br><br>
-
----
-### Interesting Software
-
-- Firefox (often already installed), Chrome and Microsoft Edge Brwoser (just open the `.deb` files witht he app store in the file-explorer)
-- Bitwarden <br>
-    Via Ubuntu Software Center
-- Git <br>
-    ```bash
-    sudo apt update
-    sudo apt install git
-    ```
-- VSCode <br>
-    Via Ubuntu Software Center
-- Anaconda <br>
-    Download Installer
-    ```bash
-    wget https://repo.anaconda.com/archive/Anaconda3-latest-Linux-x86_64.sh
-    ```
-    Run installer (follow isntructions):
-    ```bash
-    bash Anaconda3-latest-Linux-x86_64.sh
-    ```
-    Verification:
-    ```bash
-    conda --version
-    ```
-- Python <br>
-    Install:
-    ```bash
-    sudo apt update
-    sudo apt install python3 python3-pip
-    ```
-    Verifiy:
-    ```bash
-    python3 --version
-    pip3 --version
-    ```
-- Julia <br>
-    Installation:
-    ```bash
-    sudo apt update
-    sudo apt install julia
-    ```
-    Verification:
-    ```bash
-    julia --version
-    ```
-    Alternative installation:
-    ```bash
-    wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.0-linux-x86_64.tar.gz
-    tar -xvzf julia-1.10.0-linux-x86_64.tar.gz
-    sudo mv julia-1.10.0 /opt/julia
-    sudo ln -s /opt/julia/bin/julia /usr/local/bin/julia
-    ```
-- C++ (Compiler) <br>
-    ```bash
-    sudo apt update
-    sudo apt install gcc g++
-    ```
-    Install a specific version:
-    ```bash
-    sudo apt install gcc-6 g++-6
-    ```
-    Switiching Versions:
-    ```bash
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 6
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
-
-    sudo update-alternatives --config g++
-    ```
-- Latex <br>
-    Install LaTex, Biber and TexStudio:
-    ```bash
-    sudo apt update
-    sudo apt install texlive-full biber
-    ```
-- Calculator
-    - GNOME Calculator
-        ```bash
-        sudo apt install gnome-calculator
-        ```
-    - Qalculate
-        ```bash
-        sudo apt update
-        sudo apt install qalculate-gtk
-        ```
-        Start with:
-        ```bash
-        qalculate-gtk
-        ```
-- Typora
-    ```bash
-    wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
-    sudo add-apt-repository 'deb https://typora.io/linux ./'
-    sudo apt update
-    sudo apt install typora
-    ```
-- Unreal Engine
-    1. Follow the steps of the [official website](https://dev.epicgames.com/documentation/unreal-engine/downloading-source-code-in-unreal-engine) to get access to their GitHub projects, they wrote (I cite them directly):
-        1. Navigate to [GitHub](https://github.com/) and sign up for an account.
-        2. Sign in to [UnrealEngine.com](https://www.unrealengine.com/) with your verified Epic Games [account](https://accounts.unrealengine.com/). To open your account dashboard, hover over your username, and select Personal from the drop-down menu.
-        3. With your account dashboard open, select the Connections tab from the sidebar. Select the Accounts tab, and then select the Connect button below the GitHub icon.
-        4. If you have not already signed the Unreal Engine End User License Agreement, you will need to read through its terms and select the check box, then select Link Account. If you are signed out of your GitHub account, you will be directed to GitHub to sign in after clicking the Link Account button.
-        5. To complete the OAuth App Authorization process, click the Authorize EpicGames button. You can learn more about this process in [GitHub’s overview on Authorizing OAuth Apps](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps).
-        6. GitHub will send an email inviting you to join the @EpicGames organization on GitHub. You must select the Join @EpicGames button in this email within seven days to complete the GitHub and Epic Games account linking process.
-        7. Upon completion, you will receive an email from Epic Games verifying that your GitHub and Epic Games accounts were successfully linked. If you don’t receive a confirmation email, or if your account is experiencing problems, get help from Customer Service. You are now ready to get started by going to our [GitHub page](https://github.com/EpicGames/UnrealEngine) (login required) to download the full source code.
-    2. You might want to create a ssh key and share with github
-        1. Open your terminal and create a ssh key (choose the location as you which, maybe `~/.ssh/github`):
-            ```bash
-            ssh-keygen -t ed25519 -C "your_email@example.com"
-            ```
-        2. Get the public key part:
-            ```bash
-            cat ~/.ssh/id_ed25519.pub
-            # or if you named it like me:
-            cat ~/.ssh/github.pub
-            ```
-        3. Go to GitHub → Settings → SSH and GPG keys → New SSH key → paste it
-    2. Clone Repo -> change `4.27` to the version you are looking for
-        ```bash
-        git clone -b 4.26 git@github.com:EpicGames/UnrealEngine.git
-        # or if you decided to not use ssh:
-        git clone -b 4.26 https://github.com/EpicGames/UnrealEngine.git
-        ```
-    3. Run Setup Scripts
-        ```bash
-        cd UnrealEngine
-        ./Setup.sh
-        ./GenerateProjectFiles.sh
-        ```
-    4. Build the Engine
-        ```bash
-        make
-        ```
-    5. Make it direct callable (don't use a relative path here and change it to your absolute path)
-        ```bash
-        sudo ln -s /media/tobia/HDD/UnrealEngine/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
-        # or if you do not know your absolute path, this should work for sure if you are in the UnrealEngine folder
-        sudo ln -s $(pwd)/Engine/Binaries/Linux/UnrealEditor /usr/local/bin/UnrealEditor
-        ```
-    6. Start your Unreal Engine
-        ```bash
-        UnrealEditor
-        ```
-- rclone ([also see here for explanation](./Cloud.md))
-    ```bash
-    sudo apt install rclone
-    ```
-- OBS Studio -> [see download page](https://obsproject.com/de/download) or see the unoffical release in Ubuntu Software Center
-
-
-Interesting Software in the Ubuntu Appstore:
-- > Notice that some of the previous/other programs are maybe also available in the Ubuntu Software Center, as Bitwarden, Firefox and LibreOffice which we listed already.
-- (Bitwarden)
-- (firefox)
-- (libreoffice)
-- (firmware-updater)
-- (GNOME System Monitor)
-- (OBS Studio)
-- (Okular)
-- VSCode
-- CLion (C++ IDE)
-- JupyterLab Desktop
-- julia
-- Remmina
-- thunderbird (mail program)
-- Telegram
-- Discord
-- Text Editor
-- Vivaldi (eurpean alternative to Chrome and Edge)
-- Colibri (simple Browser)
-- WonderWall
-- BingWall
-- ColorWall
-- kolourpaint
-- cloudcompare (for working with point clouds)
-- Numpy viewer
-- VLC
-- Steam
-- Minecraft Installer
-- retroarch
-- youtube-dl
-
-
-- PDF Reading / Page-Adding / Signing / Password Protection
-    - Okular (often preinstalled and also available in Ubuntu Appstore)
-        ```bash
-        sudo apt update
-        sudo apt install okular
-        ```
-        - Read PDFs
-        - Add annotation and sinatures
-        - Basic editing
-    - LibreOffice Draw (often preinstalled and also available in Ubuntu Appstore)
-        ```bash
-        sudo apt install libreoffice
-        ```
-        - Add/remove pages
-        - Edit PDF content
-    - PDF Arranger
-        ```bash
-        sudo apt install pdfarranger
-        ```
-        - Merge / split / reorder pages
-    - Master PDF Editor for Linux
-        - Download in Ubuntu Appstore
-        - Alternativly download via snap:
-            ```bash
-            sudo snap install master-pdf-editor-5
-            ```
-        - Many Editor features (drawing, add image) and also some basic other Features like changing the page size and such things
-    - Stirling PDF [see installation guide](https://docs.stirlingpdf.com/Installation/Unix%20Installation/) or [the official page](https://www.stirling.com/download)
-        - Many many features (it is like a Linux version of PDF24)
-    - `qpdf` (terminal tool → for password protection)
-        ```bash
-        sudo apt install qpdf
-        ```
-        Encrypt PDF:
-        ```bash
-        qpdf --encrypt yourpassword yourpassword 256 -- input.pdf output.pdf
-        ```
-        - [also see the encryption section](#encrypt-files)
-- Presentation
-    - Powerpoint Online
-    - LibreOffice Impress
-        ```bash
-        sudo apt install libreoffice-impress
-        ```
-    - Marp
-        ```bash
-        sudo snap install marp
-        ```
-        Or use the VSCode extension.
-    - Or use Google Slides
-- Normal Writing
-    - Latex (`sudo apt install texlive-full biber`)
-    - Word Online
-- Notes
-    - OneNote Online
-- To Do
-    - Microsoft To Do Online
-    - Super Productivity (Ubuntu Software Center)
-- Image Editing (Luminar Neo not available?)
-    - [Raw Therapee](https://rawtherapee.com/)
-        ```bash
-        sudo apt update && sudo apt install rawtherapee
-        ```
-    - [Shotwell](https://shotwell-project.org/)
-        ```bash
-        sudo apt update && sudo apt install shotwell
-        ```
-- Variety (click in search bar on proposal) for wallpaper random choosing
-
 
 
 
