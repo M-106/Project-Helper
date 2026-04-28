@@ -506,6 +506,39 @@ sudo ln -s $(pwd)/zotero /usr/local/bin/zotero
     sudo apt install rclone
     ```
 - OBS Studio -> [see download page](https://obsproject.com/de/download) or see the unoffical release in Ubuntu Software Center
+- Docker:
+    ```bash
+    sudo apt update
+    sudo apt install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+    sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+    Types: deb
+    URIs: https://download.docker.com/linux/ubuntu
+    Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+    Components: stable
+    Architectures: $(dpkg --print-architecture)
+    Signed-By: /etc/apt/keyrings/docker.asc
+    EOF
+
+    sudo apt update
+
+    sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    ```
+    Check if it runs:
+    ```bash
+    sudo systemctl status docker
+    ```
+    Start Docker:
+    ```bash
+    sudo systemctl start docker
+    ```
+    Verify Installation:
+    ```bash
+    sudo docker run hello-world
+    ```
 
 
 Interesting Software in the Ubuntu Appstore:
@@ -539,6 +572,7 @@ Interesting Software in the Ubuntu Appstore:
 - Minecraft Installer
 - retroarch
 - youtube-dl
+- Variety (click in search bar on proposal) for wallpaper random choosing
 
 
 - PDF Reading / Page-Adding / Signing / Password Protection
@@ -608,7 +642,7 @@ Interesting Software in the Ubuntu Appstore:
         ```bash
         sudo apt update && sudo apt install shotwell
         ```
-- Variety (click in search bar on proposal) for wallpaper random choosing
+
 
 
 <br><br>
