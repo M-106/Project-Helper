@@ -43,6 +43,7 @@ Local Installation of the Project-Helper Guides:
 ### [Docker](./guides/Docker.md)
 ### [Cloud](./guides/Cloud.md)
 ### [Linux](./guides/Linux.md)
+### [Windows](./guides/Windows.md)
 
 <br><br>
 
@@ -93,7 +94,8 @@ Local Installation of the Project-Helper Guides:
 
 ### <------ C++ ------>
 ### [C++](./external/CPP/README.md) [[repo link](https://github.com/M-106/CPP)]
-### [Vulkan](./external/Vulkan/README.md) [[repo link](https://github.com/M-106/Vulkan)]
+<!--### [Direct X](./external/Emerging-Light-Engine/README.md) [[repo link](https://github.com/M-106/Emerging-Light-Engine)]-->
+<!--### [Vulkan](./external/Vulkan/README.md) [[repo link](https://github.com/M-106/Vulkan)]-->
 ### [Doxygen](guides/Doxygen.md)
 
 
