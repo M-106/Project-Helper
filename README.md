@@ -94,7 +94,7 @@ Local Installation of the Project-Helper Guides:
 
 ### <------ C++ ------>
 ### [C++](./external/CPP/README.md) [[repo link](https://github.com/M-106/CPP)]
-<!--### [Direct X](./external/Emerging-Light-Engine/README.md) [[repo link](https://github.com/M-106/Emerging-Light-Engine)]-->
+### [Direct X](./external/DirectX-Guide/README.md) [[repo link](https://github.com/M-106/DirectX-Guide)]
 <!--### [Vulkan](./external/Vulkan/README.md) [[repo link](https://github.com/M-106/Vulkan)]-->
 ### [Doxygen](guides/Doxygen.md)
 

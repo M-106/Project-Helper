@@ -200,6 +200,7 @@ More?
 - **MSYS2** - Unix-like environment with package manager for building native Windows software → [also see C++ Guide via MSYS](https://github.com/M-106/CPP/blob/main/docs/Basics/Installation.md#installation_)
 - **Visual Studio** - Full-featured IDE for C++, C#, .NET, and more
 - **CMake** - Cross‑platform build system generator that configures and orchestrates compilation for C++, C, and other languages
+- **DirectX** - (not directly an user software, dxdiag) Windows technology that powers fast 3D graphics, sound, and game input [see here for installation help and general guide](https://github.com/M-106/DirectX-Guide)
 
 
 <br>

@@ -55,3 +55,6 @@
 [submodule "external/Vulkan"]
 	path = external/Vulkan
 	url = https://github.com/M-106/Vulkan.git
+[submodule "external/DirectX-Guide"]
+	path = external/DirectX-Guide
+	url = https://github.com/M-106/DirectX-Guide
