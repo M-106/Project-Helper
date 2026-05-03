@@ -104,6 +104,7 @@ Here are some interesting Software, this can vary from your components and needs
 - **Explorer** - Browse and manage files and folders
 - **Outlook** - Email, calendar, and contacts management
 - **Snipping Tool** - Capture screenshots and screen recordings
+- **Task-Manager** - Process management, autostart control, Hardware monitoring and more
 
 > All are already installed.
 
@@ -198,6 +199,7 @@ More?
 - **Docker Desktop** - Run and manage containers for reproducible development environments
 - **MSYS2** - Unix-like environment with package manager for building native Windows software → [also see C++ Guide via MSYS](https://github.com/M-106/CPP/blob/main/docs/Basics/Installation.md#installation_)
 - **Visual Studio** - Full-featured IDE for C++, C#, .NET, and more
+- **CMake** - Cross‑platform build system generator that configures and orchestrates compilation for C++, C, and other languages
 
 
 <br>
