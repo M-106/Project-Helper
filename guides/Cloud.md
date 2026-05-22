@@ -64,6 +64,13 @@ Here it is with the example of OneDrive.
     rclone sync "C:\my_folder" onedrive:BackupOrdner --progress --transfers=8 --checkers=16
     ```
     For that you can add `--dry-run` to just show you what would be changed without really doing it.
+6. Synchronize but without deleting something
+    ```bash
+    rclone copy "C:\Bilder" "onedrive:Bilder" --update
+
+    rclone copy "onedrive:Bilder" "C:\Bilder" --update
+    ```
+    This will only copy all new files and replace files via the time-stamp else no deletion will happen. Both folders contain at the end the same content.
 
 
 

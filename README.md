@@ -44,6 +44,7 @@ Local Installation of the Project-Helper Guides:
 ### [Cloud](./guides/Cloud.md)
 ### [Linux](./guides/Linux.md)
 ### [Windows](./guides/Windows.md)
+### [Computer](./guides/Computer.md)
 
 <br><br>
 

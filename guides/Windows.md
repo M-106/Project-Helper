@@ -16,6 +16,7 @@ Contents:
 - [CMD](#cmd)
 - [Powershell](#powershell)
 - [SSH (in Powershell)](#ssh-in-powershell)
+- [Other interesting things to Know](#other-interesting-things-to-know)
 
 
 <br>
@@ -113,14 +114,16 @@ Here are some interesting Software, this can vary from your components and needs
 #### System
 
 - **MSI Center** - Main-/Motherboard Software → fan curves, updates, RGB, etc.
-- **Nvidia App** - GPU Software → GPU driver updates, game optimization, and recording features (replacement for GeForce Experience)
-- **MSI Afterburner** (+ RivaTurner) - GPU/CPU Stats → fan curves, updates, RGB, etc.
+- **MSI Afterburner** (+ RivaTurner) - GPU/CPU Stats → fan curves, updates, RGB, etc. NOT MSI DEPENDED
 - **WizTree** - Show Data Usage
 - **DiskGenius** - Format Disks, see "all" disks, other Disk Features
 - **AOMEI Partition Assistent** - Alternative to DiskGenius but most features are not free
 - **HWiNFO** - Detailed Information about your Hardware
 - **WSL** - Run Linux environments directly in Windows → [see WSL chapter](#wsl)
 - **VirtualBox** - Run virtual machines (alternative: VMware)
+- **Nvidia Control Panel**/**AMD Software (Adrenalin)** - GPU Software
+- **Nvidia App** - GPU Software → GPU driver updates, game optimization, and recording features (replacement for GeForce Experience)
+- **Samsung Magician** - SSD Utility Software
 
 <br>
 
@@ -227,6 +230,7 @@ More?
 - **Xbox Store** - Access Xbox Game Pass, manage games, and social features on PC
 - **Xbox Zubehör** - Configure and update Xbox controllers
 - **Playstation Accessories** - Manage PlayStation controllers on PC
+- **Game Bar** - XBOX Game Bar a multitool for gaming (making records, play music, ...)
 
 
 <br>
@@ -268,6 +272,10 @@ More?
 - **Cakewalk Next by BandLab** - Modern DAW for music production, recording, and mixing
 - **Audacity** - Free, open-source tool for recording and editing audio
 
+
+<br><br>
+
+> Don't forget `rclone`, see [this guide](./Cloud.md#up-downloading-big-or-many-files) for this software.
 
 <br><br>
 
@@ -1093,9 +1101,28 @@ Then you can simply run:
 * `Test-NetConnection host -Port 22` → check SSH port reachable
 
 
+<br><br>
+
+---
+### Other interesting things to Know
 
 
+<br><br>
 
+#### Monitor Refresh Rate
+
+Check your used refresh-rate of your monitors to get the maximum out of your monitors: `Settings` \> `Screen` \> `Advanced Display` and here you can choose the display and its refresh rate. Don't forget to change both refresh rates of all of your montiors. With HwINFO you can check which is the available refresh rate of your monitor.
+
+The refresh rate of your monitor is a very important factor for smooth gaming experience, it determines how often the image gets drawn on the monitor per second. So with 60 Hz refresh rate you monitor limites the shown Frames per Seconds to 60 even if your Hardware maybe creates 120 Frames per Second it does not make a different because of your montiors refresh rate is lower. So it is important to update/check your windows setting for this refresh rate. Changing the Refresh Rate of your Montior in the Windows settings does not only update the refresh rate for windows applications but for all applications and the real hardware output rate of your graphics card to the specific monitor.
+
+Standard refresh rate in windows is 60 Hz, so this is a must check!
+
+Additionally you can use your GPU control panel (Nvidia Control Panel / AMD Software (Adrenalin)) on `Display > Change resolution` or `Gaming > Display` to change and verify the refresh rate but changing the refreshing rate in the windows settings is to 100% enough.
+
+> You can check your refresh rate at: https://testufo.com/, https://www.eizo.de/monitortest/ / https://www.eizo.be/monitor-test/. Or in the PowerShell: `Get-CimInstance -ClassName Win32_VideoController | Select-Object CurrentRefreshRate` which shows the refresh rate of the GPU.
+
+
+<br><br>
 
 
 
