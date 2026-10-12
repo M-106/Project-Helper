@@ -18,6 +18,7 @@ Table of Contents:
 - [Why do I need this in Artificial Intelligence?](#why-do-i-need-this-in-artificial-intelligence)
 - [Container Management](#container-management)
 - [Image Management](#image-management)
+- [Create Backup](#create-backup)
 - [Disk/Volumne Mounting](#mounting-a-disk--volume)
 - [Container Lifecycle and Data](#container-lifecycle-and-data)
 - [Cleaning](#cleaning)
@@ -465,6 +466,14 @@ Examples:
 - List running containers:
     ```bash
     docker ps
+
+    # or
+
+    docker container ls
+
+    # or
+
+    docker container ls -a
     ```
 - Enter a running container (interactive shell):
     ```bash
@@ -599,6 +608,10 @@ After you might want to build + run the image or upload your image to the docker
 - List images:
     ```bash
     docker images
+
+    # or
+
+    docker image ls
     ```
 - List all images:
     ```bash
@@ -630,6 +643,23 @@ After you might want to build + run the image or upload your image to the docker
 5. **Default Command** – Use CMD or ENTRYPOINT wisely so container behaves as expected when run.
 6. **Volumes for Data** – Don’t bake datasets into the image; mount directories at runtime for large datasets.
 7. **Sudo** – Don’t use `sudo` inside a Dockerfile, you are the root user by default and it can result in errors when still using such commands.
+
+
+<br><br>
+
+---
+
+### Create Backup
+
+You can save an image via:
+```bash
+docker save -o myimage.tar myimage:latest
+```
+
+Then you can restore a saved/backuped image:
+```bash
+docker load -i myimage.tar
+```
 
 
 <br><br>
